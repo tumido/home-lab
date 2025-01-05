@@ -1,0 +1,97 @@
+version: '3'
+
+volumes:
+  prometheus_data: {}
+  homeassistant_data: {}
+
+x-podman:
+  in_pod: false
+
+services:
+  grafana:
+    image: docker.io/grafana/grafana-enterprise
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+    - '3000:3000'
+    healthcheck:
+      test: wget --quiet --tries=1 --spider http://localhost:3000/api/health || exit 1
+      interval: 30s
+      timeout: 30s
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: adminadmin
+    volumes:
+    - ${PWD}/grafana/config.ini:/etc/grafana/custom.ini
+    - ${PWD}/grafana/dashboards/main.yaml:/etc/grafana/provisioning/dashboards/main.yaml
+    - ${PWD}/grafana/dashboards:/var/lib/grafana/dashboards
+    - ${PWD}/grafana/datasources/main.yaml:/etc/grafana/provisioning/datasources/main.yaml
+
+  prometheus:
+    image: docker.io/prom/prometheus
+    container_name: prometheus
+    command:
+    - '--config.file=/etc/prometheus/prometheus.yml'
+    - '--storage.tsdb.retention.time=100y'
+    - '--storage.tsdb.path=/prometheus'
+    ports:
+    - '9090:9090'
+    restart: unless-stopped
+    healthcheck:
+      test: wget --quiet --tries=1 --spider http://localhost:9090/-/healthy || exit 1
+      interval: 30s
+      timeout: 30s
+    volumes:
+    - ${PWD}/prometheus/config.yml:/etc/prometheus/prometheus.yml
+    - prometheus_data:/prometheus
+
+  podman_exporter:
+    image: quay.io/navidys/prometheus-podman-exporter
+    container_name: podman_exporter
+    restart: unless-stopped
+    userns_mode: keep-id:uid=65534
+    healthcheck:
+      test: wget --quiet --tries=1 --spider http://localhost:9882 || exit 1
+      interval: 30s
+      timeout: 30s
+    command:
+    - '--collector.enable-all'
+    environment:
+      CONTAINER_HOST: unix:///var/run/podman/podman.sock
+    volumes:
+    - /run/user/1000/podman:/var/run/podman:ro
+
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node_exporter
+    healthcheck:
+      test: wget --quiet --tries=1 --spider http://localhost:9100 || exit 1
+      interval: 30s
+      timeout: 30s
+    command:
+    - '--path.rootfs=/host'
+    restart: unless-stopped
+    volumes:
+    - /:/host:ro,rslave
+
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: homeassistant
+    restart: unless-stopped
+    network_mode: host
+    stop_grace_period: 30s
+    healthcheck:
+      test: wget --quiet --tries=1 --spider http://localhost:8123/manifest.json || exit 1
+      interval: 30s
+      timeout: 30s
+    environment:
+      DBUS_SESSION_BUS_ADDRESS: ${DBUS_SESSION_BUS_ADDRESS}
+    volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /run/dbus:/run/dbus:ro
+    - /dev/bus:/dev/bus:z
+    - /run/user:/run/user:ro
+    - homeassistant_data:/config
+    - ${PWD}/homeassistant/automations.yaml:/config/automations.yaml
+    - ${PWD}/homeassistant/configuration.yaml:/config/configuration.yaml
+    - ${PWD}/homeassistant/scripts.yaml:/config/scripts.yaml
+    - ${PWD}/homeassistant/scenes.yaml:/config/scenes.yaml

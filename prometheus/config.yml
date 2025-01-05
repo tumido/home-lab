@@ -1,0 +1,35 @@
+global:
+  evaluation_interval: 15s
+  scrape_interval: 15s
+scrape_configs:
+- honor_labels: true
+  job_name: neem
+  static_configs:
+  - labels:
+      instance: prometheus
+    targets:
+    - prometheus:9090
+  - labels:
+      instance: node_exporter
+    targets:
+    - node_exporter:9100
+  - labels:
+      instance: grafana
+    targets:
+    - grafana:3000
+  - labels:
+      instance: podman
+    targets:
+    - podman_exporter:9882
+  - labels:
+      __metrics_path__: /api/prometheus
+      instance: homeassistant
+    targets:
+    - host.containers.internal:8123
+- honor_labels: true
+  job_name: turris
+  static_configs:
+  - labels:
+      instance: node_exporter
+    targets:
+    - 192.168.0.1:9100
