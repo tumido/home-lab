@@ -101,7 +101,7 @@
             "disableTextWrap": false,
             "editorMode": "builder",
             "exemplar": false,
-            "expr": "node_openwrt_info{instance=~\"$node:$port\", job=~\"$job\"}",
+            "expr": "node_openwrt_info{instance=\"node_exporter\", job=\"turris\"}",
             "format": "table",
             "fullMetaSearch": false,
             "includeNullMetadata": true,
@@ -197,7 +197,7 @@
             },
             "editorMode": "code",
             "exemplar": false,
-            "expr": "node_uname_info{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_uname_info{instance=\"node_exporter\",job=\"turris\"}",
             "format": "table",
             "instant": true,
             "legendFormat": "",
@@ -312,7 +312,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "(((count(count(node_cpu_seconds_total{instance=~\"$node:$port\",job=~\"$job\"}) by (cpu))) - avg(sum by (mode)(irate(node_cpu_seconds_total{mode='idle',instance=~\"$node:$port\",job=~\"$job\"}[5m])))) * 100) / count(count(node_cpu_seconds_total{instance=~\"$node:$port\",job=~\"$job\"}) by (cpu))",
+            "expr": "(((count(count(node_cpu_seconds_total{instance=\"node_exporter\",job=\"turris\"}) by (cpu))) - avg(sum by (mode)(irate(node_cpu_seconds_total{mode='idle',instance=\"node_exporter\",job=\"turris\"}[5m])))) * 100) / count(count(node_cpu_seconds_total{instance=\"node_exporter\",job=\"turris\"}) by (cpu))",
             "hide": false,
             "intervalFactor": 1,
             "legendFormat": "",
@@ -389,7 +389,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "((node_memory_MemTotal_bytes{instance=~\"$node:$port\",job=~\"$job\"} - node_memory_MemFree_bytes{instance=~\"$node:$port\",job=~\"$job\"}) / (node_memory_MemTotal_bytes{instance=~\"$node:$port\",job=~\"$job\"} )) * 100",
+            "expr": "((node_memory_MemTotal_bytes{instance=\"node_exporter\",job=\"turris\"} - node_memory_MemFree_bytes{instance=\"node_exporter\",job=\"turris\"}) / (node_memory_MemTotal_bytes{instance=\"node_exporter\",job=\"turris\"} )) * 100",
             "format": "time_series",
             "hide": true,
             "intervalFactor": 1,
@@ -401,7 +401,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "100 - ((node_memory_MemAvailable_bytes{instance=~\"$node:$port\",job=~\"$job\"} * 100) / node_memory_MemTotal_bytes{instance=~\"$node:$port\",job=~\"$job\"})",
+            "expr": "100 - ((node_memory_MemAvailable_bytes{instance=\"node_exporter\",job=\"turris\"} * 100) / node_memory_MemTotal_bytes{instance=\"node_exporter\",job=\"turris\"})",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 1,
@@ -488,7 +488,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "avg(wifi_network_quality{instance=~\"$node:$port\",job=~\"$job\"})",
+            "expr": "avg(wifi_network_quality{instance=\"node_exporter\",job=\"turris\"})",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 1,
@@ -574,7 +574,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "avg(node_load1{instance=~\"$node:$port\",job=~\"$job\"}) /  count(count(node_cpu_seconds_total{instance=~\"$node:$port\",job=~\"$job\"}) by (cpu)) * 100",
+            "expr": "avg(node_load1{instance=\"node_exporter\",job=\"turris\"}) /  count(count(node_cpu_seconds_total{instance=\"node_exporter\",job=\"turris\"}) by (cpu)) * 100",
             "hide": false,
             "intervalFactor": 1,
             "refId": "A",
@@ -659,7 +659,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "avg(node_load5{instance=~\"$node:$port\",job=~\"$job\"}) /  count(count(node_cpu_seconds_total{instance=~\"$node:$port\",job=~\"$job\"}) by (cpu)) * 100",
+            "expr": "avg(node_load5{instance=\"node_exporter\",job=\"turris\"}) /  count(count(node_cpu_seconds_total{instance=\"node_exporter\",job=\"turris\"}) by (cpu)) * 100",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 1,
@@ -745,7 +745,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "((node_memory_SwapTotal_bytes{instance=~\"$node:$port\",job=~\"$job\"} - node_memory_SwapFree_bytes{instance=~\"$node:$port\",job=~\"$job\"}) / (node_memory_SwapTotal_bytes{instance=~\"$node:$port\",job=~\"$job\"} )) * 100",
+            "expr": "((node_memory_SwapTotal_bytes{instance=\"node_exporter\",job=\"turris\"} - node_memory_SwapFree_bytes{instance=\"node_exporter\",job=\"turris\"}) / (node_memory_SwapTotal_bytes{instance=\"node_exporter\",job=\"turris\"} )) * 100",
             "intervalFactor": 1,
             "refId": "A",
             "step": 900
@@ -829,7 +829,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "100 - ((node_filesystem_avail_bytes{instance=~\"$node:$port\",job=~\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"} * 100) / node_filesystem_size_bytes{instance=~\"$node:$port\",job=~\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"})",
+            "expr": "100 - ((node_filesystem_avail_bytes{instance=\"node_exporter\",job=\"turris\",mountpoint=\"/\",fstype!=\"rootfs\"} * 100) / node_filesystem_size_bytes{instance=\"node_exporter\",job=\"turris\",mountpoint=\"/\",fstype!=\"rootfs\"})",
             "format": "time_series",
             "intervalFactor": 1,
             "refId": "A",
@@ -908,7 +908,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "count(count(node_cpu_seconds_total{instance=~\"$node:$port\",job=~\"$job\"}) by (cpu))",
+            "expr": "count(count(node_cpu_seconds_total{instance=\"node_exporter\",job=\"turris\"}) by (cpu))",
             "intervalFactor": 1,
             "refId": "A",
             "step": 900
@@ -1062,7 +1062,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_time_seconds{instance=~\"$node:$port\",job=~\"$job\"} - node_boot_time_seconds{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_time_seconds{instance=\"node_exporter\",job=\"turris\"} - node_boot_time_seconds{instance=\"node_exporter\",job=\"turris\"}",
             "intervalFactor": 2,
             "refId": "A",
             "step": 1800
@@ -1141,7 +1141,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_MemTotal_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_MemTotal_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "intervalFactor": 1,
             "refId": "A",
             "step": 900
@@ -1220,7 +1220,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "(sum(node_network_transmit_bytes_total{instance=~\"$node:$port\",job=~\"$job\"}) + sum(node_network_receive_bytes_total{instance=~\"$node:$port\",job=~\"$job\"}))",
+            "expr": "(sum(node_network_transmit_bytes_total{instance=\"node_exporter\",job=\"turris\"}) + sum(node_network_receive_bytes_total{instance=\"node_exporter\",job=\"turris\"}))",
             "intervalFactor": 1,
             "refId": "A",
             "step": 900
@@ -1299,7 +1299,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "sum(node_nat_traffic{instance=~\"$node:$port\",job=~\"$job\"})",
+            "expr": "sum(node_nat_traffic{instance=\"node_exporter\",job=\"turris\"})",
             "intervalFactor": 1,
             "refId": "A",
             "step": 900
@@ -1378,7 +1378,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_SwapTotal_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_SwapTotal_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "intervalFactor": 1,
             "refId": "A",
             "step": 900
@@ -1460,7 +1460,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_filesystem_size_bytes{instance=~\"$node:$port\",job=~\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"}",
+            "expr": "node_filesystem_size_bytes{instance=\"node_exporter\",job=\"turris\",mountpoint=\"/\",fstype!=\"rootfs\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 1,
@@ -1861,7 +1861,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "sum by (instance)(irate(node_cpu_seconds_total{mode=\"system\",instance=~\"$node:$port\",job=~\"$job\"}[5m])) * 100",
+            "expr": "sum by (instance)(irate(node_cpu_seconds_total{mode=\"system\",instance=\"node_exporter\",job=\"turris\"}[5m])) * 100",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -1874,7 +1874,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "sum by (instance)(irate(node_cpu_seconds_total{mode='user',instance=~\"$node:$port\",job=~\"$job\"}[5m])) * 100",
+            "expr": "sum by (instance)(irate(node_cpu_seconds_total{mode='user',instance=\"node_exporter\",job=\"turris\"}[5m])) * 100",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -1887,7 +1887,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "sum by (instance)(irate(node_cpu_seconds_total{mode='iowait',instance=~\"$node:$port\",job=~\"$job\"}[5m])) * 100",
+            "expr": "sum by (instance)(irate(node_cpu_seconds_total{mode='iowait',instance=\"node_exporter\",job=\"turris\"}[5m])) * 100",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Busy Iowait",
@@ -1899,7 +1899,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "sum by (instance)(irate(node_cpu_seconds_total{mode=~\".*irq\",instance=~\"$node:$port\",job=~\"$job\"}[5m])) * 100",
+            "expr": "sum by (instance)(irate(node_cpu_seconds_total{mode=~\".*irq\",instance=\"node_exporter\",job=\"turris\"}[5m])) * 100",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Busy IRQs",
@@ -1911,7 +1911,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "sum (irate(node_cpu_seconds_total{mode!='idle',mode!='user',mode!='system',mode!='iowait',mode!='irq',mode!='softirq',instance=~\"$node:$port\",job=~\"$job\"}[5m])) * 100",
+            "expr": "sum (irate(node_cpu_seconds_total{mode!='idle',mode!='user',mode!='system',mode!='iowait',mode!='irq',mode!='softirq',instance=\"node_exporter\",job=\"turris\"}[5m])) * 100",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Busy Other",
@@ -1923,7 +1923,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='idle',instance=~\"$node:$port\",job=~\"$job\"}[5m])) * 100",
+            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='idle',instance=\"node_exporter\",job=\"turris\"}[5m])) * 100",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Idle",
@@ -2394,7 +2394,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_MemTotal_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_MemTotal_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -2407,7 +2407,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_MemTotal_bytes{instance=~\"$node:$port\",job=~\"$job\"} - node_memory_MemFree_bytes{instance=~\"$node:$port\",job=~\"$job\"} - (node_memory_Cached_bytes{instance=~\"$node:$port\",job=~\"$job\"} + node_memory_Buffers_bytes{instance=~\"$node:$port\",job=~\"$job\"})",
+            "expr": "node_memory_MemTotal_bytes{instance=\"node_exporter\",job=\"turris\"} - node_memory_MemFree_bytes{instance=\"node_exporter\",job=\"turris\"} - (node_memory_Cached_bytes{instance=\"node_exporter\",job=\"turris\"} + node_memory_Buffers_bytes{instance=\"node_exporter\",job=\"turris\"})",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -2420,7 +2420,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Cached_bytes{instance=~\"$node:$port\",job=~\"$job\"} + node_memory_Buffers_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Cached_bytes{instance=\"node_exporter\",job=\"turris\"} + node_memory_Buffers_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "RAM Cache + Buffer",
@@ -2432,7 +2432,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_MemFree_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_MemFree_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "RAM Free",
@@ -2444,7 +2444,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "(node_memory_SwapTotal_bytes{instance=~\"$node:$port\",job=~\"$job\"} - node_memory_SwapFree_bytes{instance=~\"$node:$port\",job=~\"$job\"})",
+            "expr": "(node_memory_SwapTotal_bytes{instance=\"node_exporter\",job=\"turris\"} - node_memory_SwapFree_bytes{instance=\"node_exporter\",job=\"turris\"})",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "SWAP Used",
@@ -2702,7 +2702,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode=\"system\",instance=~\"$node:$port\",job=~\"$job\"}[5m])) * 100",
+            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode=\"system\",instance=\"node_exporter\",job=\"turris\"}[5m])) * 100",
             "format": "time_series",
             "interval": "10s",
             "intervalFactor": 2,
@@ -2715,7 +2715,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='user',instance=~\"$node:$port\",job=~\"$job\"}[5m])) * 100",
+            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='user',instance=\"node_exporter\",job=\"turris\"}[5m])) * 100",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "User - Normal processes executing in user mode",
@@ -2727,7 +2727,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='nice',instance=~\"$node:$port\",job=~\"$job\"}[5m])) * 100",
+            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='nice',instance=\"node_exporter\",job=\"turris\"}[5m])) * 100",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Nice - Niced processes executing in user mode",
@@ -2739,7 +2739,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='idle',instance=~\"$node:$port\",job=~\"$job\"}[5m])) * 100",
+            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='idle',instance=\"node_exporter\",job=\"turris\"}[5m])) * 100",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Idle - Waiting for something to happen",
@@ -2751,7 +2751,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='iowait',instance=~\"$node:$port\",job=~\"$job\"}[5m])) * 100",
+            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='iowait',instance=\"node_exporter\",job=\"turris\"}[5m])) * 100",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Iowait - Waiting for I/O to complete",
@@ -2763,7 +2763,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='irq',instance=~\"$node:$port\",job=~\"$job\"}[5m])) * 100",
+            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='irq',instance=\"node_exporter\",job=\"turris\"}[5m])) * 100",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Irq - Servicing interrupts",
@@ -2775,7 +2775,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='softirq',instance=~\"$node:$port\",job=~\"$job\"}[5m])) * 100",
+            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='softirq',instance=\"node_exporter\",job=\"turris\"}[5m])) * 100",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Softirq - Servicing softirqs",
@@ -2787,7 +2787,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='steal',instance=~\"$node:$port\",job=~\"$job\"}[5m])) * 100",
+            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='steal',instance=\"node_exporter\",job=\"turris\"}[5m])) * 100",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Steal - Time spent in other operating systems when running in a virtualized environment",
@@ -2799,7 +2799,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='guest',instance=~\"$node:$port\",job=~\"$job\"}[5m])) * 100",
+            "expr": "sum by (mode)(irate(node_cpu_seconds_total{mode='guest',instance=\"node_exporter\",job=\"turris\"}[5m])) * 100",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Guest - Time spent running a virtual CPU for a guest operating system",
@@ -3208,7 +3208,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_MemTotal_bytes{instance=~\"$node:$port\",job=~\"$job\"} - node_memory_MemFree_bytes{instance=~\"$node:$port\",job=~\"$job\"} - node_memory_Buffers_bytes{instance=~\"$node:$port\",job=~\"$job\"} - node_memory_Cached_bytes{instance=~\"$node:$port\",job=~\"$job\"} - node_memory_Slab_bytes{instance=~\"$node:$port\",job=~\"$job\"} - node_memory_PageTables_bytes{instance=~\"$node:$port\",job=~\"$job\"} - node_memory_SwapCached_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_MemTotal_bytes{instance=\"node_exporter\",job=\"turris\"} - node_memory_MemFree_bytes{instance=\"node_exporter\",job=\"turris\"} - node_memory_Buffers_bytes{instance=\"node_exporter\",job=\"turris\"} - node_memory_Cached_bytes{instance=\"node_exporter\",job=\"turris\"} - node_memory_Slab_bytes{instance=\"node_exporter\",job=\"turris\"} - node_memory_PageTables_bytes{instance=\"node_exporter\",job=\"turris\"} - node_memory_SwapCached_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -3221,7 +3221,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_PageTables_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_PageTables_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -3234,7 +3234,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_SwapCached_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_SwapCached_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "SwapCache - Memory that keeps track of pages that have been fetched from swap but not yet been modified",
@@ -3246,7 +3246,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Slab_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Slab_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -3259,7 +3259,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Cached_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Cached_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -3272,7 +3272,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Buffers_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Buffers_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -3285,7 +3285,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_MemFree_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_MemFree_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -3298,7 +3298,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "(node_memory_SwapTotal_bytes{instance=~\"$node:$port\",job=~\"$job\"} - node_memory_SwapFree_bytes{instance=~\"$node:$port\",job=~\"$job\"})",
+            "expr": "(node_memory_SwapTotal_bytes{instance=\"node_exporter\",job=\"turris\"} - node_memory_SwapFree_bytes{instance=\"node_exporter\",job=\"turris\"})",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -3311,7 +3311,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_HardwareCorrupted_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_HardwareCorrupted_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -3687,7 +3687,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Inactive_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Inactive_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Inactive - Memory which has been less recently used.  It is more eligible to be reclaimed for other purposes",
@@ -3699,7 +3699,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Active_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Active_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Active - Memory that has been used more recently and usually not reclaimed unless absolutely necessary",
@@ -4080,7 +4080,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Committed_AS_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Committed_AS_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Committed_AS - Amount of memory presently allocated on the system",
@@ -4092,7 +4092,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_CommitLimit_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_CommitLimit_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "CommitLimit - Amount of  memory currently available to be allocated on the system",
@@ -4454,7 +4454,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Inactive_file_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Inactive_file_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -4467,7 +4467,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Inactive_anon_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Inactive_anon_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -4480,7 +4480,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Active_file_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Active_file_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -4493,7 +4493,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Active_anon_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Active_anon_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -4885,7 +4885,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Writeback_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Writeback_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Writeback - Memory which is actively being written back to disk",
@@ -4897,7 +4897,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_WritebackTmp_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_WritebackTmp_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "WritebackTmp - Memory used by FUSE for temporary writeback buffers",
@@ -4909,7 +4909,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Dirty_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Dirty_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Dirty - Memory which is waiting to get written back to the disk",
@@ -5271,7 +5271,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Mapped_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Mapped_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Mapped - Used memory in mapped pages files which have been mmaped, such as libraries",
@@ -5283,7 +5283,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Shmem_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Shmem_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Shmem - Used shared memory (shared between several processes, thus including RAM disks)",
@@ -5674,7 +5674,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_SUnreclaim_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_SUnreclaim_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "SUnreclaim - Part of Slab, that cannot be reclaimed on memory pressure",
@@ -5686,7 +5686,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_SReclaimable_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_SReclaimable_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "SReclaimable - Part of Slab, that might be reclaimed, such as caches",
@@ -6062,7 +6062,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_VmallocChunk_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_VmallocChunk_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -6075,7 +6075,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_VmallocTotal_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_VmallocTotal_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -6088,7 +6088,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_VmallocUsed_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_VmallocUsed_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -6451,7 +6451,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Bounce_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Bounce_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Bounce - Memory used for block device bounce buffers",
@@ -6839,7 +6839,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_AnonHugePages_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_AnonHugePages_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "AnonHugePages - Memory in anonymous huge pages",
@@ -6851,7 +6851,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_AnonPages_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_AnonPages_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "AnonPages - Memory in user pages not backed by files",
@@ -7213,7 +7213,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_KernelStack_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_KernelStack_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "KernelStack - Kernel memory stack. This is not reclaimable",
@@ -7604,7 +7604,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_NFS_Unstable_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_NFS_Unstable_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "NFS Unstable - Memory in NFS pages sent to the server, but not yet commited to the storage",
@@ -7966,7 +7966,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Unevictable_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Unevictable_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Unevictable - Amount of unevictable memory that can't be swapped out for a variety of reasons",
@@ -7978,7 +7978,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_memory_Mlocked_bytes{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_memory_Mlocked_bytes{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "MLocked - Size of pages locked to memory using the mlock() system call",
@@ -8096,7 +8096,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_context_switches_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_context_switches_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Context switches",
@@ -8108,7 +8108,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_intr_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_intr_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Interrupts",
@@ -8213,7 +8213,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_load1{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_load1{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 4,
             "legendFormat": "Load 1m",
@@ -8225,7 +8225,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_load5{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_load5{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 4,
             "legendFormat": "Load 5m",
@@ -8237,7 +8237,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_load15{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_load15{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 4,
             "legendFormat": "Load 15m",
@@ -8342,7 +8342,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_forks_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_forks_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -8449,7 +8449,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_filefd_maximum{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_filefd_maximum{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 4,
             "legendFormat": "Max open files",
@@ -8461,7 +8461,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_filefd_allocated{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_filefd_allocated{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "Open files",
@@ -8616,7 +8616,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "wifi_network_quality{instance=~\"$node:$port\",job=~\"$job\",ifname=\"wlan0\"}",
+            "expr": "wifi_network_quality{instance=\"node_exporter\",job=\"turris\",ifname=\"wlan0\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 1,
@@ -8685,7 +8685,7 @@
               "uid": "ee8vu48m4j8xsb"
             },
             "editorMode": "code",
-            "expr": "wifi_network_quality{instance=~\"$node:$port\",job=~\"$job\",ifname=\"guest_turris_1\"}",
+            "expr": "wifi_network_quality{instance=\"node_exporter\",job=\"turris\",ifname=\"guest_turris_1\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 1,
@@ -8754,7 +8754,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "wifi_network_quality{instance=~\"$node:$port\",job=~\"$job\",ifname=\"wlan1\"}",
+            "expr": "wifi_network_quality{instance=\"node_exporter\",job=\"turris\",ifname=\"wlan1\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 1,
@@ -8853,7 +8853,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "wifi_network_noise_dbm{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "wifi_network_noise_dbm{instance=\"node_exporter\",job=\"turris\"}",
             "legendFormat": "",
             "refId": "A"
           }
@@ -8949,7 +8949,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "wifi_stations{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "wifi_stations{instance=\"node_exporter\",job=\"turris\"}",
             "legendFormat": "",
             "refId": "A"
           }
@@ -9048,7 +9048,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "wifi_network_bitrate{instance=~\"$node:$port\",job=~\"$job\"}/1024",
+            "expr": "wifi_network_bitrate{instance=\"node_exporter\",job=\"turris\"}/1024",
             "legendFormat": "{{ifname}}",
             "refId": "A"
           }
@@ -9148,7 +9148,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "wifi_network_quality{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "wifi_network_quality{instance=\"node_exporter\",job=\"turris\"}",
             "legendFormat": "{{ifname}}",
             "refId": "A"
           }
@@ -9247,7 +9247,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "wifi_station_expected_throughput_kilobits_per_second{instance=~\"$node:$port\",job=~\"$job\"}/1024",
+            "expr": "wifi_station_expected_throughput_kilobits_per_second{instance=\"node_exporter\",job=\"turris\"}/1024",
             "legendFormat": "{{mac}} # {{ifname}}",
             "refId": "A"
           }
@@ -9346,7 +9346,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "wifi_station_signal_dbm{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "wifi_station_signal_dbm{instance=\"node_exporter\",job=\"turris\"}",
             "legendFormat": "{{mac}} # {{ifname}}",
             "refId": "A"
           }
@@ -9444,7 +9444,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "wifi_station_inactive_milliseconds{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "wifi_station_inactive_milliseconds{instance=\"node_exporter\",job=\"turris\"}",
             "legendFormat": "{{mac}} # {{ifname}}",
             "refId": "A"
           }
@@ -9556,7 +9556,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_network_transmit_bytes_total{instance=~\"$node:$port\",job=~\"$job\"}/1024/1024",
+            "expr": "node_network_transmit_bytes_total{instance=\"node_exporter\",job=\"turris\"}/1024/1024",
             "legendFormat": "{{device}}",
             "refId": "A"
           }
@@ -9655,7 +9655,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_network_receive_bytes_total{instance=~\"$node:$port\",job=~\"$job\"}/1024/1024",
+            "expr": "node_network_receive_bytes_total{instance=\"node_exporter\",job=\"turris\"}/1024/1024",
             "legendFormat": "{{device}}",
             "refId": "A"
           }
@@ -9934,7 +9934,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_network_receive_bytes_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])/1024",
+            "expr": "irate(node_network_receive_bytes_total{instance=\"node_exporter\",job=\"turris\"}[5m])/1024",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{device}} - Receive",
@@ -9946,7 +9946,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_network_transmit_bytes_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])/1024",
+            "expr": "irate(node_network_transmit_bytes_total{instance=\"node_exporter\",job=\"turris\"}[5m])/1024",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{device}} - Transmit",
@@ -10228,7 +10228,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_network_transmit_packets_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_network_transmit_packets_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{device}} - Transmit",
@@ -10240,7 +10240,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_network_receive_packets_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_network_receive_packets_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{device}} - Receive",
@@ -10342,7 +10342,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_network_transmit_packets_total{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_network_transmit_packets_total{instance=\"node_exporter\",job=\"turris\"}",
             "legendFormat": "{{device}}",
             "refId": "A"
           }
@@ -10441,7 +10441,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_network_receive_packets_total{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_network_receive_packets_total{instance=\"node_exporter\",job=\"turris\"}",
             "legendFormat": "{{device}}",
             "refId": "A"
           }
@@ -10582,7 +10582,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "topk(15, node_nat_traffic{instance=~\"$node:$port\",job=~\"$job\"}/1024/1024)",
+            "expr": "topk(15, node_nat_traffic{instance=\"node_exporter\",job=\"turris\"}/1024/1024)",
             "hide": false,
             "instant": false,
             "intervalFactor": 4,
@@ -10817,7 +10817,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_network_receive_drop_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_network_receive_drop_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{device}} - Receive drop",
@@ -10829,7 +10829,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_network_transmit_drop_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_network_transmit_drop_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{device}} - Transmit drop",
@@ -11051,7 +11051,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_network_receive_errs_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_network_receive_errs_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{device}} - Receive errors",
@@ -11063,7 +11063,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_network_transmit_errs_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_network_transmit_errs_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{device}} - Rransmit errors",
@@ -11285,7 +11285,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_network_receive_multicast_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_network_receive_multicast_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{device}} - Receive multicast",
@@ -11507,7 +11507,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_network_receive_compressed_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_network_receive_compressed_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{device}} - Receive compressed",
@@ -11519,7 +11519,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_network_transmit_compressed_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_network_transmit_compressed_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{device}} - Transmit compressed",
@@ -11741,7 +11741,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_network_receive_frame_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_network_receive_frame_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -11964,7 +11964,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_network_receive_fifo_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_network_receive_fifo_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{device}} - Receive fifo",
@@ -11976,7 +11976,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_network_transmit_fifo_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_network_transmit_fifo_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{device}} - Transmit fifo",
@@ -12153,7 +12153,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_network_transmit_colls_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_network_transmit_colls_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{device}} - Transmit colls",
@@ -12330,7 +12330,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "irate(node_network_transmit_carrier_total{instance=~\"$node:$port\",job=~\"$job\"}[5m])",
+            "expr": "irate(node_network_transmit_carrier_total{instance=\"node_exporter\",job=\"turris\"}[5m])",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{device}} - Statistic transmit_carrier",
@@ -12454,7 +12454,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_nf_conntrack_entries{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_nf_conntrack_entries{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "NF conntrack entries",
@@ -12466,7 +12466,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_nf_conntrack_entries_limit{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_nf_conntrack_entries_limit{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "NF conntrack limit",
@@ -12583,7 +12583,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_scrape_collector_duration_seconds{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_scrape_collector_duration_seconds{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -12688,7 +12688,7 @@
               "type": "prometheus",
               "uid": "ee8vu48m4j8xsb"
             },
-            "expr": "node_scrape_collector_success{instance=~\"$node:$port\",job=~\"$job\"}",
+            "expr": "node_scrape_collector_success{instance=\"node_exporter\",job=\"turris\"}",
             "format": "time_series",
             "hide": false,
             "intervalFactor": 2,
@@ -12706,77 +12706,7 @@
     "schemaVersion": 40,
     "tags": [],
     "templating": {
-      "list": [
-        {
-          "current": {
-            "text": "turris",
-            "value": "turris"
-          },
-          "datasource": "ee8vu48m4j8xsb",
-          "definition": "",
-          "includeAll": false,
-          "label": "Job",
-          "name": "job",
-          "options": [],
-          "query": "label_values(node_uname_info, job)",
-          "refresh": 1,
-          "regex": "",
-          "sort": 1,
-          "type": "query"
-        },
-        {
-          "current": {
-            "text": "turris",
-            "value": "turris"
-          },
-          "datasource": "ee8vu48m4j8xsb",
-          "definition": "",
-          "includeAll": false,
-          "label": "Host:",
-          "name": "name",
-          "options": [],
-          "query": "label_values(node_uname_info{job=~\"$job\"}, nodename)",
-          "refresh": 1,
-          "regex": "",
-          "sort": 1,
-          "type": "query"
-        },
-        {
-          "current": {
-            "text": "",
-            "value": ""
-          },
-          "datasource": "ee8vu48m4j8xsb",
-          "definition": "",
-          "hide": 2,
-          "includeAll": false,
-          "label": "Host:",
-          "name": "node",
-          "options": [],
-          "query": "label_values(node_uname_info{nodename=\"$name\"}, instance)",
-          "refresh": 1,
-          "regex": "/([^:]+):.*/",
-          "sort": 1,
-          "type": "query"
-        },
-        {
-          "current": {
-            "text": "",
-            "value": ""
-          },
-          "datasource": "ee8vu48m4j8xsb",
-          "definition": "",
-          "includeAll": false,
-          "label": "Port",
-          "name": "port",
-          "options": [],
-          "query": "label_values(node_uname_info{instance=~\"$node:(.*)\"}, instance)",
-          "refresh": 1,
-          "regex": "/[^:]+:(.*)/",
-          "sort": 3,
-          "type": "query"
-        }
-      ]
+      "list": []
     },
     "time": {
       "from": "now-1h",

@@ -20,6 +20,8 @@ services:
       timeout: 30s
     environment:
       GF_SECURITY_ADMIN_PASSWORD: adminadmin
+    command:
+    - --config=/etc/grafana/custom.ini
     volumes:
     - ${PWD}/grafana/config.ini:/etc/grafana/custom.ini
     - ${PWD}/grafana/dashboards/main.yaml:/etc/grafana/provisioning/dashboards/main.yaml

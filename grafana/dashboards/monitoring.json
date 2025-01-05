@@ -18,7 +18,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 8,
+    "id": 1,
     "links": [],
     "panels": [
       {
@@ -189,9 +189,11 @@
               "uid": "ee8vu48m4j8xsb"
             },
             "editorMode": "code",
+            "exemplar": false,
             "expr": "(time() - process_start_time_seconds{instance=\"grafana\"})",
+            "instant": true,
             "intervalFactor": 2,
-            "range": true,
+            "range": false,
             "refId": "A"
           }
         ],
@@ -1062,9 +1064,11 @@
               "uid": "ee8vu48m4j8xsb"
             },
             "editorMode": "code",
+            "exemplar": false,
             "expr": "(time() - process_start_time_seconds{instance=\"prometheus\"})",
+            "instant": true,
             "intervalFactor": 2,
-            "range": true,
+            "range": false,
             "refId": "A"
           }
         ],
@@ -1742,7 +1746,10 @@
     ],
     "preload": false,
     "schemaVersion": 40,
-    "tags": [],
+    "tags": [
+      "grafana",
+      "prometheus"
+    ],
     "templating": {
       "list": []
     },
