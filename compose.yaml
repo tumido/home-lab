@@ -97,3 +97,14 @@ services:
     - ${PWD}/homeassistant/configuration.yaml:/config/configuration.yaml
     - ${PWD}/homeassistant/scripts.yaml:/config/scripts.yaml
     - ${PWD}/homeassistant/scenes.yaml:/config/scenes.yaml
+
+  wud:
+    image: ghcr.io/getwud/wud:latest
+    container_name: wud
+    restart: unless-stopped
+    healthcheck:
+      test: curl --fail http://localhost:3000/health || exit 1
+      interval: 30s
+      timeout: 30s
+    volumes:
+      - /run/user/1000/podman/podman.sock:/var/run/docker.sock:ro

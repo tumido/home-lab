@@ -1,2322 +1,2368 @@
 {
-    "annotations": {
-      "list": [
-        {
-          "builtIn": 1,
-          "datasource": {
-            "type": "datasource",
-            "uid": "grafana"
-          },
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "type": "dashboard"
-        }
-      ]
-    },
-    "description": "This dashboard leverages Prometheus podman exporter as the data source and utilizes various visualization panels like time series and tables, providing critical insights into the operational metrics of Podman containers.",
-    "editable": true,
-    "fiscalYearStartMonth": 0,
-    "graphTooltip": 0,
-    "id": 6,
-    "links": [],
-    "panels": [
+  "annotations": {
+    "list": [
       {
+        "builtIn": 1,
         "datasource": {
-          "type": "prometheus",
-          "uid": "ee8vu48m4j8xsb"
+          "type": "datasource",
+          "uid": "grafana"
         },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "decimals": 0,
-            "mappings": [
-              {
-                "options": {
-                  "0": {
-                    "color": "dark-red",
-                    "index": 1,
-                    "text": "down"
-                  },
-                  "1": {
-                    "color": "green",
-                    "index": 0,
-                    "text": "up"
-                  }
-                },
-                "type": "value"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "text",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "none"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 4,
-          "w": 2,
-          "x": 0,
-          "y": 0
-        },
-        "id": 31,
-        "maxDataPoints": 100,
-        "options": {
-          "colorMode": "background_solid",
-          "graphMode": "none",
-          "justifyMode": "auto",
-          "orientation": "horizontal",
-          "percentChangeColorMode": "standard",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "showPercentChange": false,
-          "text": {},
-          "textMode": "value",
-          "wideLayout": true
-        },
-        "pluginVersion": "11.4.0",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "expr": "up{instance=\"podman\"}",
-            "format": "time_series",
-            "instant": true,
-            "intervalFactor": 2,
-            "refId": "A",
-            "step": 60
-          }
-        ],
-        "title": "",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "ee8vu48m4j8xsb"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "mappings": [],
-            "noValue": "0",
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "text",
-                  "value": null
-                },
-                {
-                  "color": "blue",
-                  "value": 0
-                }
-              ]
-            }
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Running"
-              },
-              "properties": [
-                {
-                  "id": "thresholds",
-                  "value": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "text",
-                        "value": null
-                      },
-                      {
-                        "color": "green",
-                        "value": 0
-                      }
-                    ]
-                  }
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Exited"
-              },
-              "properties": [
-                {
-                  "id": "thresholds",
-                  "value": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "text",
-                        "value": null
-                      },
-                      {
-                        "color": "orange",
-                        "value": 0
-                      }
-                    ]
-                  }
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Unknown"
-              },
-              "properties": [
-                {
-                  "id": "thresholds",
-                  "value": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "text",
-                        "value": null
-                      },
-                      {
-                        "color": "red",
-                        "value": 0
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 4,
-          "w": 11,
-          "x": 2,
-          "y": 0
-        },
-        "id": 30,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "auto",
-          "orientation": "vertical",
-          "percentChangeColorMode": "standard",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "showPercentChange": false,
-          "textMode": "auto",
-          "wideLayout": true
-        },
-        "pluginVersion": "11.4.0",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "count(podman_container_state{instance=\"podman\"} == 0)",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "Created"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "count(podman_container_state{instance=\"podman\"} == 1)",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "Initialized"
-          },
-          {
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "count(podman_container_state{instance=\"podman\"} == 2)",
-            "format": "table",
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "Running"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "count(podman_container_state{instance=\"podman\"} == 3)",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "Stopped"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "count(podman_container_state{instance=\"podman\"} == 4)",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "Paused"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "count(podman_container_state{instance=\"podman\"} == 5)",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "Exited"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "count(podman_container_state{instance=\"podman\"} == 6)",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "Removing"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "count(podman_container_state{instance=\"podman\"} == 7)",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "Stopping"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "count(podman_container_state{instance=\"podman\"} == -1)",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "Unknown"
-          }
-        ],
-        "title": "Status",
-        "transformations": [
-          {
-            "id": "renameByRegex",
-            "options": {
-              "regex": "Value #(.*)",
-              "renamePattern": "$1"
-            }
-          }
-        ],
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "ee8vu48m4j8xsb"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "custom": {
-              "align": "auto",
-              "cellOptions": {
-                "type": "auto"
-              },
-              "inspect": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "__name__"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 231
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 4,
-          "w": 11,
-          "x": 13,
-          "y": 0
-        },
-        "id": 29,
-        "options": {
-          "cellHeight": "sm",
-          "footer": {
-            "countRows": false,
-            "fields": "",
-            "reducer": [
-              "sum"
-            ],
-            "show": false
-          },
-          "showHeader": true,
-          "sortBy": []
-        },
-        "pluginVersion": "11.4.0",
-        "targets": [
-          {
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "podman_system_api_version{instance=\"podman\"}",
-            "format": "table",
-            "instant": true,
-            "interval": "",
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "A"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "podman_system_buildah_version{instance=\"podman\"}",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "B"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "podman_system_conmon_version{instance=\"podman\"}",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "C"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "podman_system_runtime_version{instance=\"podman\"}",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "D"
-          }
-        ],
-        "title": "Version",
-        "transformations": [
-          {
-            "id": "merge",
-            "options": {}
-          },
-          {
-            "id": "filterFieldsByName",
-            "options": {
-              "include": {
-                "names": [
-                  "__name__",
-                  "version"
-                ]
-              }
-            }
-          },
-          {
-            "id": "rowsToFields",
-            "options": {
-              "mappings": [
-                {
-                  "fieldName": "version",
-                  "handlerKey": "field.value"
-                }
-              ]
-            }
-          },
-          {
-            "id": "organize",
-            "options": {
-              "excludeByName": {},
-              "includeByName": {},
-              "indexByName": {},
-              "renameByName": {
-                "podman_system_api_version": "API",
-                "podman_system_buildah_version": "Buildah",
-                "podman_system_conmon_version": "Container monitor",
-                "podman_system_runtime_version": "Runtime"
-              }
-            }
-          }
-        ],
-        "type": "table"
-      },
-      {
-        "collapsed": false,
-        "gridPos": {
-          "h": 1,
-          "w": 24,
-          "x": 0,
-          "y": 4
-        },
-        "id": 8,
-        "panels": [],
-        "title": "CPU",
-        "type": "row"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "ee8vu48m4j8xsb"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "decimals": 2,
-            "fieldMinMax": false,
-            "mappings": [],
-            "max": 1,
-            "min": 0,
-            "thresholds": {
-              "mode": "percentage",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "#EAB839",
-                  "value": 80
-                },
-                {
-                  "color": "red",
-                  "value": 90
-                }
-              ]
-            },
-            "unit": "percentunit"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 7,
-          "w": 3,
-          "x": 0,
-          "y": 5
-        },
-        "id": 22,
-        "options": {
-          "minVizHeight": 75,
-          "minVizWidth": 75,
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "showThresholdLabels": false,
-          "showThresholdMarkers": true,
-          "sizing": "auto"
-        },
-        "pluginVersion": "11.4.0",
-        "targets": [
-          {
-            "editorMode": "code",
-            "expr": "sum(rate(podman_container_cpu_seconds_total{instance=\"podman\"}[$__rate_interval])) / count(node_cpu_seconds_total{instance=\"node_exporter\",job=\"neem\",mode=\"idle\"})",
-            "legendFormat": "__auto",
-            "range": true,
-            "refId": "A"
-          }
-        ],
-        "title": "Total CPU of containers",
-        "type": "gauge"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "ee8vu48m4j8xsb"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "axisBorderShow": false,
-              "axisCenteredZero": false,
-              "axisColorMode": "text",
-              "axisLabel": "",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "barWidthFactor": 0.6,
-              "drawStyle": "line",
-              "fillOpacity": 10,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "insertNulls": false,
-              "lineInterpolation": "linear",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "never",
-              "spanNulls": false,
-              "stacking": {
-                "group": "A",
-                "mode": "normal"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "percent"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 7,
-          "w": 21,
-          "x": 3,
-          "y": 5
-        },
-        "id": 20,
-        "options": {
-          "legend": {
-            "calcs": [
-              "mean",
-              "max"
-            ],
-            "displayMode": "table",
-            "placement": "right",
-            "showLegend": true
-          },
-          "tooltip": {
-            "mode": "multi",
-            "sort": "none"
-          }
-        },
-        "pluginVersion": "11.4.0",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "disableTextWrap": false,
-            "editorMode": "code",
-            "expr": "sum by (name) (podman_container_info{instance=\"podman\", name=~\"$container\"} * on(id) group_right (name) rate(podman_container_cpu_seconds_total[1m])\n)",
-            "fullMetaSearch": false,
-            "hide": false,
-            "includeNullMetadata": true,
-            "interval": "",
-            "legendFormat": "__auto",
-            "range": true,
-            "refId": "A",
-            "useBackend": false
-          }
-        ],
-        "title": "CPU Usage",
-        "type": "timeseries"
-      },
-      {
-        "collapsed": false,
-        "gridPos": {
-          "h": 1,
-          "w": 24,
-          "x": 0,
-          "y": 12
-        },
-        "id": 11,
-        "panels": [],
-        "title": "Memory",
-        "type": "row"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "ee8vu48m4j8xsb"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "decimals": 2,
-            "fieldMinMax": false,
-            "mappings": [],
-            "max": 1,
-            "min": 0,
-            "thresholds": {
-              "mode": "percentage",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "#EAB839",
-                  "value": 80
-                },
-                {
-                  "color": "red",
-                  "value": 90
-                }
-              ]
-            },
-            "unit": "percentunit"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 7,
-          "w": 3,
-          "x": 0,
-          "y": 13
-        },
-        "id": 23,
-        "options": {
-          "minVizHeight": 75,
-          "minVizWidth": 75,
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "showThresholdLabels": false,
-          "showThresholdMarkers": true,
-          "sizing": "auto"
-        },
-        "pluginVersion": "11.4.0",
-        "targets": [
-          {
-            "editorMode": "code",
-            "expr": "sum(podman_container_mem_usage_bytes{instance=\"podman\"}) / sum(node_memory_MemTotal_bytes{instance=\"node_exporter\",job=\"neem\"})",
-            "legendFormat": "__auto",
-            "range": true,
-            "refId": "A"
-          }
-        ],
-        "title": "Total memory of containers",
-        "type": "gauge"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "ee8vu48m4j8xsb"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "axisBorderShow": false,
-              "axisCenteredZero": false,
-              "axisColorMode": "text",
-              "axisLabel": "",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "barWidthFactor": 0.6,
-              "drawStyle": "line",
-              "fillOpacity": 10,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "insertNulls": false,
-              "lineInterpolation": "linear",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "never",
-              "spanNulls": false,
-              "stacking": {
-                "group": "A",
-                "mode": "normal"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "bytes"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 7,
-          "w": 21,
-          "x": 3,
-          "y": 13
-        },
-        "id": 9,
-        "options": {
-          "legend": {
-            "calcs": [
-              "mean",
-              "max"
-            ],
-            "displayMode": "table",
-            "placement": "right",
-            "showLegend": true
-          },
-          "tooltip": {
-            "mode": "multi",
-            "sort": "none"
-          }
-        },
-        "pluginVersion": "11.4.0",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "expr": "sum by (name) (\n    podman_container_info{instance=\"podman\", name=~\"$container\"}\n  * on (id) group_right (name)\n    (podman_container_mem_usage_bytes / 1024 / 1024)\n)",
-            "hide": false,
-            "interval": "",
-            "legendFormat": "{{name}}",
-            "range": true,
-            "refId": "A"
-          }
-        ],
-        "title": "Memory Usage",
-        "type": "timeseries"
-      },
-      {
-        "collapsed": false,
-        "gridPos": {
-          "h": 1,
-          "w": 24,
-          "x": 0,
-          "y": 20
-        },
-        "id": 2,
-        "panels": [],
-        "title": "Network",
-        "type": "row"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "ee8vu48m4j8xsb"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "axisBorderShow": false,
-              "axisCenteredZero": false,
-              "axisColorMode": "text",
-              "axisLabel": "Bytes/sec",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "barWidthFactor": 0.6,
-              "drawStyle": "line",
-              "fillOpacity": 10,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "insertNulls": false,
-              "lineInterpolation": "linear",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "never",
-              "spanNulls": false,
-              "stacking": {
-                "group": "A",
-                "mode": "none"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "bytes"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 0,
-          "y": 21
-        },
-        "id": 14,
-        "options": {
-          "legend": {
-            "calcs": [
-              "mean",
-              "max"
-            ],
-            "displayMode": "table",
-            "placement": "right",
-            "showLegend": true
-          },
-          "tooltip": {
-            "mode": "multi",
-            "sort": "none"
-          }
-        },
-        "pluginVersion": "11.4.0",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "expr": "sum by(name) (podman_container_info{instance=\"podman\", name=~\"$container\"} * on(id) group_right(name) rate(podman_container_net_input_total[1m]) / 1024)",
-            "hide": false,
-            "interval": "",
-            "legendFormat": "{{name}} - Read",
-            "range": true,
-            "refId": "A"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "expr": "sum(rate(podman_container_blkio_device_write_bytes_total{instance=\"podman\",name=~\"$container\"}[5m])) by (name)",
-            "hide": false,
-            "interval": "",
-            "legendFormat": "{{name}} - Write",
-            "range": true,
-            "refId": "B"
-          }
-        ],
-        "title": "Recieved Network Traffic",
-        "type": "timeseries"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "ee8vu48m4j8xsb"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "axisBorderShow": false,
-              "axisCenteredZero": false,
-              "axisColorMode": "text",
-              "axisLabel": "Bytes/sec",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "barWidthFactor": 0.6,
-              "drawStyle": "line",
-              "fillOpacity": 10,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "insertNulls": false,
-              "lineInterpolation": "linear",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "never",
-              "spanNulls": false,
-              "stacking": {
-                "group": "A",
-                "mode": "none"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "bytes"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 12,
-          "y": 21
-        },
-        "id": 17,
-        "options": {
-          "legend": {
-            "calcs": [
-              "mean",
-              "max"
-            ],
-            "displayMode": "table",
-            "placement": "right",
-            "showLegend": true
-          },
-          "tooltip": {
-            "mode": "multi",
-            "sort": "none"
-          }
-        },
-        "pluginVersion": "11.4.0",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "expr": "sum by(name) (podman_container_info{instance=\"podman\", name=~\"$container\"} * on(id) group_right(name) rate(podman_container_net_output_total[1m]) / 1024)",
-            "hide": false,
-            "interval": "",
-            "legendFormat": "{{name}} - Read",
-            "range": true,
-            "refId": "A"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "expr": "sum(rate(podman_container_blkio_device_write_bytes_total{instance=\"podman\", name=~\"$container\"}[5m])) by (name)",
-            "hide": false,
-            "interval": "",
-            "legendFormat": "{{name}} - Write",
-            "range": true,
-            "refId": "B"
-          }
-        ],
-        "title": "Sent Network Traffic",
-        "type": "timeseries"
-      },
-      {
-        "collapsed": false,
-        "gridPos": {
-          "h": 1,
-          "w": 24,
-          "x": 0,
-          "y": 29
-        },
-        "id": 25,
-        "panels": [],
-        "title": "Disk",
-        "type": "row"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "ee8vu48m4j8xsb"
-        },
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "fixedColor": "blue",
-              "mode": "thresholds"
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "percentage",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "bytes"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 4,
-          "w": 3,
-          "x": 0,
-          "y": 30
-        },
-        "id": 24,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "area",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "percentChangeColorMode": "standard",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "showPercentChange": false,
-          "textMode": "auto",
-          "wideLayout": true
-        },
-        "pluginVersion": "11.4.0",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_PROMETHEUS-OULUCLOUD-US}"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "sum(podman_image_size)",
-            "format": "table",
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "A"
-          }
-        ],
-        "title": "Total Image Size",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "ee8vu48m4j8xsb"
-        },
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "continuous-GrYlRd"
-            },
-            "decimals": 2,
-            "mappings": [],
-            "thresholds": {
-              "mode": "percentage",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "#EAB839",
-                  "value": 70
-                },
-                {
-                  "color": "red",
-                  "value": 90
-                }
-              ]
-            },
-            "unit": "percentunit"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 4,
-          "w": 3,
-          "x": 3,
-          "y": 30
-        },
-        "id": 26,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "percentChangeColorMode": "standard",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "showPercentChange": false,
-          "textMode": "auto",
-          "wideLayout": true
-        },
-        "pluginVersion": "11.4.0",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_PROMETHEUS-OULUCLOUD-US}"
-            },
-            "editorMode": "code",
-            "expr": "sum(podman_image_size{instance=\"podman\"}) / sum(node_filesystem_size_bytes{instance=\"node_exporter\",job=\"neem\"})",
-            "legendFormat": "__auto",
-            "range": true,
-            "refId": "A"
-          }
-        ],
-        "title": "Disk Percentage",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "ee8vu48m4j8xsb"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "custom": {
-              "align": "center",
-              "cellOptions": {
-                "type": "auto"
-              },
-              "inspect": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Create Time"
-              },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "dateTimeFromNow"
-                },
-                {
-                  "id": "custom.width",
-                  "value": 116
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Driver"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 90
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Name"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 200
-                },
-                {
-                  "id": "custom.align",
-                  "value": "left"
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Mount point"
-              },
-              "properties": [
-                {
-                  "id": "custom.align",
-                  "value": "left"
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 6,
-          "w": 18,
-          "x": 6,
-          "y": 30
-        },
-        "id": 28,
-        "options": {
-          "cellHeight": "sm",
-          "footer": {
-            "countRows": false,
-            "fields": "",
-            "reducer": [
-              "sum"
-            ],
-            "show": false
-          },
-          "showHeader": true
-        },
-        "pluginVersion": "11.4.0",
-        "targets": [
-          {
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "podman_volume_info{instance=\"podman\"}",
-            "format": "table",
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "A"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "podman_volume_created_seconds{instance=\"podman\"} * 1000",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "B"
-          }
-        ],
-        "title": "Volumes",
-        "transformations": [
-          {
-            "id": "merge",
-            "options": {}
-          },
-          {
-            "id": "organize",
-            "options": {
-              "excludeByName": {
-                "Time": true,
-                "Value": true,
-                "Value #A": true,
-                "__name__": true,
-                "instance": true,
-                "job": true
-              },
-              "includeByName": {},
-              "indexByName": {
-                "Time": 0,
-                "Value": 7,
-                "__name__": 2,
-                "driver": 3,
-                "instance": 4,
-                "job": 5,
-                "mount_point": 6,
-                "name": 1
-              },
-              "renameByName": {
-                "Value #A": "",
-                "Value #B": "Create Time",
-                "__name__": "",
-                "driver": "Driver",
-                "instance": "",
-                "job": "",
-                "mount_point": "Mount point",
-                "name": "Name"
-              }
-            }
-          }
-        ],
-        "type": "table"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "ee8vu48m4j8xsb"
-        },
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "custom": {
-              "align": "center",
-              "cellOptions": {
-                "type": "auto"
-              },
-              "inspect": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Create Time"
-              },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "dateTimeFromNow"
-                },
-                {
-                  "id": "custom.width",
-                  "value": 120
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Size"
-              },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "bits"
-                },
-                {
-                  "id": "custom.width",
-                  "value": 120
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "ID"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 120
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Tag"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 90
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Name"
-              },
-              "properties": [
-                {
-                  "id": "custom.align",
-                  "value": "auto"
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 9,
-          "w": 18,
-          "x": 6,
-          "y": 36
-        },
-        "id": 27,
-        "options": {
-          "cellHeight": "sm",
-          "footer": {
-            "countRows": false,
-            "fields": "",
-            "reducer": [
-              "sum"
-            ],
-            "show": false
-          },
-          "frameIndex": 0,
-          "showHeader": true,
-          "sortBy": []
-        },
-        "pluginVersion": "11.4.0",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_PROMETHEUS-OULUCLOUD-US}"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "podman_image_info{instance=\"podman\"}",
-            "format": "table",
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "A"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_PROMETHEUS-OULUCLOUD-US}"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "podman_image_created_seconds{instance=\"podman\"} * 1000",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "B"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_PROMETHEUS-OULUCLOUD-US}"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "podman_image_size{instance=\"podman\"}",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "C"
-          }
-        ],
-        "title": "Image Info",
-        "transformations": [
-          {
-            "id": "filterFieldsByName",
-            "options": {
-              "include": {
-                "names": [
-                  "id",
-                  "repository",
-                  "tag",
-                  "Value #B",
-                  "Value #C"
-                ]
-              }
-            }
-          },
-          {
-            "id": "merge",
-            "options": {}
-          },
-          {
-            "id": "organize",
-            "options": {
-              "excludeByName": {
-                "id": true
-              },
-              "includeByName": {},
-              "indexByName": {},
-              "renameByName": {
-                "Value #B": "Create Time",
-                "Value #C": "Size",
-                "id": "ID",
-                "repository": "Name",
-                "tag": "Tag"
-              }
-            }
-          }
-        ],
-        "type": "table"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "ee8vu48m4j8xsb"
-        },
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "custom": {
-              "align": "center",
-              "cellOptions": {
-                "type": "auto"
-              },
-              "inspect": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                }
-              ]
-            }
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Memory"
-              },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "bytes"
-                },
-                {
-                  "id": "custom.width",
-                  "value": 90
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Status"
-              },
-              "properties": [
-                {
-                  "id": "mappings",
-                  "value": [
-                    {
-                      "options": {
-                        "0": {
-                          "color": "#c0c0c0",
-                          "index": 1,
-                          "text": "created"
-                        },
-                        "1": {
-                          "index": 2,
-                          "text": "initialized"
-                        },
-                        "2": {
-                          "color": "green",
-                          "index": 3,
-                          "text": "running"
-                        },
-                        "3": {
-                          "index": 4,
-                          "text": "stopped"
-                        },
-                        "4": {
-                          "color": "#808081",
-                          "index": 5,
-                          "text": "paused"
-                        },
-                        "5": {
-                          "color": "red",
-                          "index": 6,
-                          "text": "exited"
-                        },
-                        "6": {
-                          "color": "yellow",
-                          "index": 7,
-                          "text": "removing"
-                        },
-                        "7": {
-                          "color": "yellow",
-                          "index": 8,
-                          "text": "stopping"
-                        },
-                        "-1": {
-                          "color": "red",
-                          "index": 0,
-                          "text": "unknown"
-                        }
-                      },
-                      "type": "value"
-                    }
-                  ]
-                },
-                {
-                  "id": "custom.cellOptions",
-                  "value": {
-                    "type": "color-text"
-                  }
-                },
-                {
-                  "id": "custom.width",
-                  "value": 75
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Exit code"
-              },
-              "properties": [
-                {
-                  "id": "custom.cellOptions",
-                  "value": {
-                    "type": "color-text"
-                  }
-                },
-                {
-                  "id": "mappings",
-                  "value": [
-                    {
-                      "options": {
-                        "0": {
-                          "color": "#808080",
-                          "index": 0,
-                          "text": "none"
-                        }
-                      },
-                      "type": "value"
-                    },
-                    {
-                      "options": {
-                        "from": 1,
-                        "result": {
-                          "color": "red",
-                          "index": 1
-                        },
-                        "to": 255
-                      },
-                      "type": "range"
-                    }
-                  ]
-                },
-                {
-                  "id": "custom.width",
-                  "value": 75
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Uptime"
-              },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "s"
-                },
-                {
-                  "id": "custom.width",
-                  "value": 90
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "PID"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 50
-                },
-                {
-                  "id": "decimals",
-                  "value": 0
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "ID"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 121
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Mem Usage"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 100
-                },
-                {
-                  "id": "unit",
-                  "value": "percentunit"
-                },
-                {
-                  "id": "color",
-                  "value": {
-                    "mode": "continuous-GrYlRd"
-                  }
-                },
-                {
-                  "id": "custom.cellOptions",
-                  "value": {
-                    "mode": "gradient",
-                    "type": "gauge"
-                  }
-                },
-                {
-                  "id": "decimals",
-                  "value": 2
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Name"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 150
-                },
-                {
-                  "id": "custom.align",
-                  "value": "auto"
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Port"
-              },
-              "properties": [
-                {
-                  "id": "custom.width",
-                  "value": 180
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Image"
-              },
-              "properties": [
-                {
-                  "id": "custom.align",
-                  "value": "left"
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "Health"
-              },
-              "properties": [
-                {
-                  "id": "mappings",
-                  "value": [
-                    {
-                      "options": {
-                        "0": {
-                          "color": "green",
-                          "index": 1,
-                          "text": "healthy"
-                        },
-                        "1": {
-                          "color": "red",
-                          "index": 2,
-                          "text": "unhealthy"
-                        },
-                        "2": {
-                          "color": "yellow",
-                          "index": 3,
-                          "text": "starting"
-                        },
-                        "-1": {
-                          "color": "text",
-                          "index": 0,
-                          "text": "unknown"
-                        }
-                      },
-                      "type": "value"
-                    }
-                  ]
-                },
-                {
-                  "id": "custom.cellOptions",
-                  "value": {
-                    "type": "color-text"
-                  }
-                },
-                {
-                  "id": "custom.width",
-                  "value": 75
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 10,
-          "w": 24,
-          "x": 0,
-          "y": 45
-        },
-        "id": 21,
-        "options": {
-          "cellHeight": "sm",
-          "footer": {
-            "countRows": false,
-            "fields": "",
-            "reducer": [
-              "sum"
-            ],
-            "show": false
-          },
-          "frameIndex": 1,
-          "showHeader": true,
-          "sortBy": [
-            {
-              "desc": false,
-              "displayName": "Status"
-            }
-          ]
-        },
-        "pluginVersion": "11.4.0",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "podman_container_info{instance=\"podman\", name=~\"$container\"}",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "info"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "(podman_container_info{instance=\"podman\", name=~\"$container\"} * on (id) group_right (name) (podman_container_state))",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "状态",
-            "range": false,
-            "refId": "state"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "(podman_container_info{instance=\"podman\", name=~\"$container\"} * on (id) group_right (name) (podman_container_mem_usage_bytes))",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "momery"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "(podman_container_info{instance=\"podman\", name=~\"$container\"} * on (id) group_right (name) (podman_container_exit_code))",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "exit_code"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "(podman_container_info{instance=\"podman\", name=~\"$container\"} * on (id) group_right (name) (time() - podman_container_started_seconds))",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "uptime"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "(podman_container_info{instance=\"podman\", name=~\"$container\"} * on (id) group_right (name) (podman_container_pids))",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "PID"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "(podman_container_info{instance=\"podman\", name=~\"$container\"} * on (id) group_right (name) (podman_container_mem_usage_bytes / (podman_container_mem_limit_bytes)))",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "mem_percentage"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "ee8vu48m4j8xsb"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "(podman_container_info{instance=\"podman\", name=~\"$container\"} * on (id) group_right (name) (podman_container_health))",
-            "format": "table",
-            "hide": false,
-            "instant": true,
-            "legendFormat": "__auto",
-            "range": false,
-            "refId": "health"
-          }
-        ],
-        "title": "Container Overview",
-        "transformations": [
-          {
-            "id": "filterFieldsByName",
-            "options": {
-              "include": {
-                "names": [
-                  "id",
-                  "image",
-                  "instance",
-                  "name",
-                  "ports",
-                  "Value #state",
-                  "Value #momery",
-                  "Value #exit_code",
-                  "Value #uptime",
-                  "Value #PID",
-                  "Value #mem_percentage",
-                  "Value #health"
-                ]
-              }
-            }
-          },
-          {
-            "id": "merge",
-            "options": {}
-          },
-          {
-            "id": "organize",
-            "options": {
-              "excludeByName": {
-                "Time": true,
-                "Value": true,
-                "Value #A": true,
-                "__name__": true,
-                "instance": true,
-                "job": true
-              },
-              "includeByName": {},
-              "indexByName": {
-                "Value #PID": 9,
-                "Value #exit_code": 11,
-                "Value #health": 8,
-                "Value #mem_percentage": 4,
-                "Value #momery": 3,
-                "Value #state": 7,
-                "Value #uptime": 10,
-                "id": 1,
-                "image": 5,
-                "instance": 2,
-                "name": 0,
-                "ports": 6
-              },
-              "renameByName": {
-                "Value": "",
-                "Value #B": "状态",
-                "Value #C": "退出代码",
-                "Value #PID": "PID",
-                "Value #exit_code": "Exit code",
-                "Value #ext_code": "错误代码",
-                "Value #health": "Health",
-                "Value #mem_max": "内存使用率",
-                "Value #mem_percentage": "Mem Usage",
-                "Value #momery": "Memory",
-                "Value #state": "Status",
-                "Value #uptime": "Uptime",
-                "id": "ID",
-                "image": "Image",
-                "instance": "Host",
-                "name": "Name",
-                "ports": "Port",
-                "state": "状态"
-              }
-            }
-          }
-        ],
-        "type": "table"
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
       }
-    ],
-    "preload": false,
-    "refresh": "auto",
-    "schemaVersion": 40,
-    "tags": [
-      "podman"
-    ],
-    "templating": {
-      "list": [
-        {
-          "allValue": ".*",
-          "current": {
-            "text": "All",
-            "value": "$__all"
+    ]
+  },
+  "description": "This dashboard leverages Prometheus podman exporter as the data source and utilizes various visualization panels like time series and tables, providing critical insights into the operational metrics of Podman containers.",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 5,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ee8vu48m4j8xsb"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
           },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "dark-red",
+                  "index": 1,
+                  "text": "down"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "up"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 0,
+        "y": 0
+      },
+      "id": 31,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background_solid",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
           "datasource": {
             "type": "prometheus",
             "uid": "ee8vu48m4j8xsb"
           },
-          "definition": "label_values(podman_container_info{instance=\"podman\"},name)",
-          "includeAll": true,
-          "label": "Container",
-          "name": "container",
-          "options": [],
-          "query": {
-            "qryType": 1,
-            "query": "label_values(podman_container_info{instance=\"podman\"},name)",
-            "refId": "PrometheusVariableQueryEditor-VariableQuery"
-          },
-          "refresh": 1,
-          "regex": "",
-          "type": "query"
+          "editorMode": "code",
+          "expr": "up{instance=\"podman\"}",
+          "format": "time_series",
+          "instant": true,
+          "intervalFactor": 2,
+          "refId": "A",
+          "step": 60
         }
-      ]
+      ],
+      "title": "",
+      "type": "stat"
     },
-    "time": {
-      "from": "now-30m",
-      "to": "now"
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ee8vu48m4j8xsb"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Running"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "text",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 0
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Exited"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "text",
+                      "value": null
+                    },
+                    {
+                      "color": "orange",
+                      "value": 0
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Unknown"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "text",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 0
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 11,
+        "x": 2,
+        "y": 0
+      },
+      "id": 30,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "vertical",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(podman_container_state{instance=\"podman\"} == 0)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Created"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(podman_container_state{instance=\"podman\"} == 1)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Initialized"
+        },
+        {
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(podman_container_state{instance=\"podman\"} == 2)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Running"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(podman_container_state{instance=\"podman\"} == 3)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Stopped"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(podman_container_state{instance=\"podman\"} == 4)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Paused"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(podman_container_state{instance=\"podman\"} == 5)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Exited"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(podman_container_state{instance=\"podman\"} == 6)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Removing"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(podman_container_state{instance=\"podman\"} == 7)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Stopping"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(podman_container_state{instance=\"podman\"} == -1)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Unknown"
+        }
+      ],
+      "title": "Status",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "Value #(.*)",
+            "renamePattern": "$1"
+          }
+        }
+      ],
+      "type": "stat"
     },
-    "timepicker": {},
-    "timezone": "",
-    "title": "Podman",
-    "uid": "fdsbn3zzogqv4f",
-    "version": 12,
-    "weekStart": ""
-  }
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ee8vu48m4j8xsb"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "__name__"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 231
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 11,
+        "x": 13,
+        "y": 0
+      },
+      "id": 29,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "podman_system_api_version{instance=\"podman\"}",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "podman_system_buildah_version{instance=\"podman\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "podman_system_conmon_version{instance=\"podman\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "podman_system_runtime_version{instance=\"podman\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
+        }
+      ],
+      "title": "Version",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "__name__",
+                "version"
+              ]
+            }
+          }
+        },
+        {
+          "id": "rowsToFields",
+          "options": {
+            "mappings": [
+              {
+                "fieldName": "version",
+                "handlerKey": "field.value"
+              }
+            ]
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "podman_system_api_version": "API",
+              "podman_system_buildah_version": "Buildah",
+              "podman_system_conmon_version": "Container monitor",
+              "podman_system_runtime_version": "Runtime"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "id": 8,
+      "panels": [],
+      "title": "CPU",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ee8vu48m4j8xsb"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "fieldMinMax": false,
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 3,
+        "x": 0,
+        "y": 5
+      },
+      "id": 22,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum(rate(podman_container_cpu_seconds_total{instance=\"podman\"}[$__rate_interval])) / count(node_cpu_seconds_total{instance=\"node_exporter\",job=\"neem\",mode=\"idle\"})",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Total CPU of containers",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ee8vu48m4j8xsb"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 21,
+        "x": 3,
+        "y": 5
+      },
+      "id": 20,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "sum by (name) (podman_container_info{instance=\"podman\", name=~\"$container\"} * on(id) group_right (name) rate(podman_container_cpu_seconds_total[1m])\n)",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "interval": "",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "CPU Usage",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 11,
+      "panels": [],
+      "title": "Memory",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ee8vu48m4j8xsb"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "fieldMinMax": false,
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 3,
+        "x": 0,
+        "y": 13
+      },
+      "id": 23,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum(podman_container_mem_usage_bytes{instance=\"podman\"}) / sum(node_memory_MemTotal_bytes{instance=\"node_exporter\",job=\"neem\"})",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Total memory of containers",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ee8vu48m4j8xsb"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 21,
+        "x": 3,
+        "y": 13
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "expr": "sum by (name) (\n    podman_container_info{instance=\"podman\", name=~\"$container\"}\n  * on (id) group_right (name)\n    (podman_container_mem_usage_bytes / 1024 / 1024)\n)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{name}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Memory Usage",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      "id": 2,
+      "panels": [],
+      "title": "Network",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ee8vu48m4j8xsb"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Bytes/sec",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 21
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "expr": "sum by(name) (podman_container_info{instance=\"podman\", name=~\"$container\"} * on(id) group_right(name) rate(podman_container_net_input_total[1m]) / 1024)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{name}} - Read",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(podman_container_blkio_device_write_bytes_total{instance=\"podman\",name=~\"$container\"}[5m])) by (name)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{name}} - Write",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Recieved Network Traffic",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ee8vu48m4j8xsb"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Bytes/sec",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 21
+      },
+      "id": 17,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "expr": "sum by(name) (podman_container_info{instance=\"podman\", name=~\"$container\"} * on(id) group_right(name) rate(podman_container_net_output_total[1m]) / 1024)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{name}} - Read",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(podman_container_blkio_device_write_bytes_total{instance=\"podman\", name=~\"$container\"}[5m])) by (name)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{name}} - Write",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Sent Network Traffic",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 29
+      },
+      "id": 25,
+      "panels": [],
+      "title": "Disk",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ee8vu48m4j8xsb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "blue",
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 30
+      },
+      "id": 24,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS-OULUCLOUD-US}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(podman_image_size)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "Total Image Size",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ee8vu48m4j8xsb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 30
+      },
+      "id": 26,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS-OULUCLOUD-US}"
+          },
+          "editorMode": "code",
+          "expr": "sum(podman_image_size{instance=\"podman\"}) / sum(node_filesystem_size_bytes{instance=\"node_exporter\",job=\"neem\"})",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Disk Percentage",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ee8vu48m4j8xsb"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Create Time"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "dateTimeFromNow"
+              },
+              {
+                "id": "custom.width",
+                "value": 116
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Driver"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 200
+              },
+              {
+                "id": "custom.align",
+                "value": "left"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Mount point"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "left"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 18,
+        "x": 6,
+        "y": 30
+      },
+      "id": 28,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "podman_volume_info{instance=\"podman\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "podman_volume_created_seconds{instance=\"podman\"} * 1000",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        }
+      ],
+      "title": "Volumes",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "Value": true,
+              "Value #A": true,
+              "__name__": true,
+              "instance": true,
+              "job": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "Time": 0,
+              "Value": 7,
+              "__name__": 2,
+              "driver": 3,
+              "instance": 4,
+              "job": 5,
+              "mount_point": 6,
+              "name": 1
+            },
+            "renameByName": {
+              "Value #A": "",
+              "Value #B": "Create Time",
+              "__name__": "",
+              "driver": "Driver",
+              "instance": "",
+              "job": "",
+              "mount_point": "Mount point",
+              "name": "Name"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ee8vu48m4j8xsb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Create Time"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "dateTimeFromNow"
+              },
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Size"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bits"
+              },
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Tag"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "auto"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 18,
+        "x": 6,
+        "y": 36
+      },
+      "id": 27,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 0,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS-OULUCLOUD-US}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "podman_image_info{instance=\"podman\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS-OULUCLOUD-US}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "podman_image_created_seconds{instance=\"podman\"} * 1000",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS-OULUCLOUD-US}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "podman_image_size{instance=\"podman\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        }
+      ],
+      "title": "Image Info",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "id",
+                "repository",
+                "tag",
+                "Value #B",
+                "Value #C"
+              ]
+            }
+          }
+        },
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "id": true
+            },
+            "includeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Value #B": "Create Time",
+              "Value #C": "Size",
+              "id": "ID",
+              "repository": "Name",
+              "tag": "Tag"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ee8vu48m4j8xsb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Memory"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bytes"
+              },
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Status"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "#c0c0c0",
+                        "index": 1,
+                        "text": "created"
+                      },
+                      "1": {
+                        "index": 2,
+                        "text": "initialized"
+                      },
+                      "2": {
+                        "color": "green",
+                        "index": 3,
+                        "text": "running"
+                      },
+                      "3": {
+                        "index": 4,
+                        "text": "stopped"
+                      },
+                      "4": {
+                        "color": "#808081",
+                        "index": 5,
+                        "text": "paused"
+                      },
+                      "5": {
+                        "color": "red",
+                        "index": 6,
+                        "text": "exited"
+                      },
+                      "6": {
+                        "color": "yellow",
+                        "index": 7,
+                        "text": "removing"
+                      },
+                      "7": {
+                        "color": "yellow",
+                        "index": 8,
+                        "text": "stopping"
+                      },
+                      "-1": {
+                        "color": "red",
+                        "index": 0,
+                        "text": "unknown"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 75
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Exit code"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "#808080",
+                        "index": 0,
+                        "text": "none"
+                      }
+                    },
+                    "type": "value"
+                  },
+                  {
+                    "options": {
+                      "from": 1,
+                      "result": {
+                        "color": "red",
+                        "index": 1
+                      },
+                      "to": 255
+                    },
+                    "type": "range"
+                  }
+                ]
+              },
+              {
+                "id": "custom.width",
+                "value": 75
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Uptime"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 50
+              },
+              {
+                "id": "decimals",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 121
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Mem Usage"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
+              },
+              {
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-GrYlRd"
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 150
+              },
+              {
+                "id": "custom.align",
+                "value": "auto"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Port"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 180
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Image"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "left"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Health"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "green",
+                        "index": 1,
+                        "text": "healthy"
+                      },
+                      "1": {
+                        "color": "red",
+                        "index": 2,
+                        "text": "unhealthy"
+                      },
+                      "2": {
+                        "color": "yellow",
+                        "index": 3,
+                        "text": "starting"
+                      },
+                      "-1": {
+                        "color": "text",
+                        "index": 0,
+                        "text": "unknown"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 75
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Update available"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "false": {
+                        "color": "green",
+                        "index": 1,
+                        "text": "up to date"
+                      },
+                      "true": {
+                        "color": "orange",
+                        "index": 0,
+                        "text": "update available"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 45
+      },
+      "id": 21,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 0,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "Status"
+          }
+        ]
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "podman_container_info{instance=\"podman\", name=~\"$container\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "info"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(podman_container_info{instance=\"podman\", name=~\"$container\"} * on (id) group_right (name) (podman_container_state))",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "状态",
+          "range": false,
+          "refId": "state"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(podman_container_info{instance=\"podman\", name=~\"$container\"} * on (id) group_right (name) (podman_container_mem_usage_bytes))",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "momery"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(podman_container_info{instance=\"podman\", name=~\"$container\"} * on (id) group_right (name) (podman_container_exit_code))",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "exit_code"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(podman_container_info{instance=\"podman\", name=~\"$container\"} * on (id) group_right (name) (time() - podman_container_started_seconds))",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "uptime"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(podman_container_info{instance=\"podman\", name=~\"$container\"} * on (id) group_right (name) (podman_container_pids))",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "PID"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(podman_container_info{instance=\"podman\", name=~\"$container\"} * on (id) group_right (name) (podman_container_mem_usage_bytes / (podman_container_mem_limit_bytes)))",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "mem_percentage"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(podman_container_info{instance=\"podman\", name=~\"$container\"} * on (id) group_right (name) (podman_container_health))",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "health"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(podman_container_info{instance=\"podman\", name=~\"$container\"} * on(id) group_left(update_available) (label_replace(label_replace(wud_containers{instance=\"wud\"}, 'id', '$1', 'id', '(.{12}).*'), 'name', '$1', 'display_name', '(.*)')))",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "updateable"
+        }
+      ],
+      "title": "Container Overview",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "id",
+                "image",
+                "instance",
+                "name",
+                "ports",
+                "Value #state",
+                "Value #momery",
+                "Value #exit_code",
+                "Value #uptime",
+                "Value #PID",
+                "Value #mem_percentage",
+                "Value #health",
+                "update_available"
+              ]
+            }
+          }
+        },
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "Value": true,
+              "Value #A": true,
+              "__name__": true,
+              "instance": true,
+              "job": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "Value #PID": 10,
+              "Value #exit_code": 12,
+              "Value #health": 8,
+              "Value #mem_percentage": 4,
+              "Value #momery": 3,
+              "Value #state": 7,
+              "Value #uptime": 11,
+              "id": 1,
+              "image": 5,
+              "instance": 2,
+              "name": 0,
+              "ports": 6,
+              "update_available": 9
+            },
+            "renameByName": {
+              "Value #PID": "PID",
+              "Value #exit_code": "Exit code",
+              "Value #health": "Health",
+              "Value #mem_percentage": "Mem Usage",
+              "Value #momery": "Memory",
+              "Value #state": "Status",
+              "Value #uptime": "Uptime",
+              "id": "ID",
+              "image": "Image",
+              "instance": "Host",
+              "name": "Name",
+              "ports": "Port",
+              "update_available": "Update available"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "preload": false,
+  "refresh": "auto",
+  "schemaVersion": 40,
+  "tags": [
+    "podman"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": ".*",
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "ee8vu48m4j8xsb"
+        },
+        "definition": "label_values(podman_container_info{instance=\"podman\"},name)",
+        "includeAll": true,
+        "label": "Container",
+        "name": "container",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(podman_container_info{instance=\"podman\"},name)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Podman",
+  "uid": "fdsbn3zzogqv4f",
+  "version": 2,
+  "weekStart": ""
+}

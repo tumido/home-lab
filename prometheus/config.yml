@@ -26,6 +26,10 @@ scrape_configs:
       instance: homeassistant
     targets:
     - host.containers.internal:8123
+  - labels:
+      instance: wud
+    targets:
+    - wud:3000
 - honor_labels: true
   job_name: turris
   static_configs:
