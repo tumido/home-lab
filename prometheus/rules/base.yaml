@@ -1,0 +1,30 @@
+# yaml-language-server: $schema=https://json.schemastore.org/prometheus.rules.json
+# Based on https://github.com/alerta/prometheus-config/blob/master/config/prometheus.rules.yml
+groups:
+- name: Base
+  rules:
+  - alert: Heartbeat
+    expr: vector(1)
+    labels:
+      severity: info
+    annotations:
+      summary: "Heartbeat from prometheus"
+      description: "Heartbeat from from prometheus"
+      message: Always firing alert for Prometheus metamonitoring.
+
+  - alert: ServiceDown
+    expr: up == 0
+    labels:
+      severity: critical
+    annotations:
+      description: Service {{ $labels.instance }} is unavailable.
+      value: DOWN ({{ $value }})
+
+  - alert: HighLoad
+    expr: sum(node_load1) by (host) / count(node_cpu_seconds_total{mode="system"}) by (host) > 0.5
+    labels:
+      severity: warning
+    annotations:
+      description: '{{ $labels.host }} of job {{ $labels.job }} is under high load.'
+      summary: Instance {{ $labels.job }}/{{ $labels.instance }} on {{ $labels.host }} under high load
+      value: '{{ $value }}'

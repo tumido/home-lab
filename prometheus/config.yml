@@ -1,39 +1,65 @@
+# yaml-language-server: $schema=https://json.schemastore.org/prometheus.json
+
 global:
   evaluation_interval: 15s
   scrape_interval: 15s
+
+rule_files:
+  - "rules/*.yaml"
+
+
 scrape_configs:
 - honor_labels: true
-  job_name: neem
+  job_name: prometheus
   static_configs:
   - labels:
-      instance: prometheus
+      host: neem
     targets:
     - prometheus:9090
+
+- honor_labels: true
+  job_name: node_exporter
+  static_configs:
   - labels:
-      instance: node_exporter
+      host: neem
     targets:
     - node_exporter:9100
   - labels:
-      instance: grafana
-    targets:
-    - grafana:3000
-  - labels:
-      instance: podman
-    targets:
-    - podman_exporter:9882
-  - labels:
-      __metrics_path__: /api/prometheus
-      instance: homeassistant
-    targets:
-    - host.containers.internal:8123
-  - labels:
-      instance: wud
-    targets:
-    - wud:3000
-- honor_labels: true
-  job_name: turris
-  static_configs:
-  - labels:
-      instance: node_exporter
+      host: turris
     targets:
     - 192.168.0.1:9100
+
+- honor_labels: true
+  job_name: grafana
+  static_configs:
+  - labels:
+      host: neem
+    targets:
+    - grafana:3000
+
+- honor_labels: true
+  job_name: podman
+  static_configs:
+  - labels:
+      host: neem
+    targets:
+    - podman_exporter:9882
+
+- honor_labels: true
+  job_name: homeassistant
+  static_configs:
+  - labels:
+      __metrics_path__: /api/prometheus
+      host: neem
+    targets:
+    - host.containers.internal:8123
+
+- honor_labels: true
+  job_name: wud
+  static_configs:
+  - labels:
+      host: neem
+    targets:
+    - wud:3000
+
+

@@ -43,7 +43,8 @@ services:
       interval: 30s
       timeout: 30s
     volumes:
-    - ${PWD}/prometheus/config.yml:/etc/prometheus/prometheus.yml
+    - ${PWD}/prometheus/config.yml:/etc/prometheus/prometheus.yml:ro
+    - ${PWD}/prometheus/rules:/etc/prometheus/rules:ro
     - prometheus_data:/prometheus
 
   podman_exporter:
@@ -71,6 +72,7 @@ services:
       timeout: 30s
     command:
     - '--path.rootfs=/host'
+    - --collector.filesystem.mount-points-exclude=^/(.+/\.local/share/containers/storage/.+|run/user/.+/netns|run/\.containerenv)($|/)
     restart: unless-stopped
     volumes:
     - /:/host:ro,rslave
@@ -102,9 +104,13 @@ services:
     image: ghcr.io/getwud/wud:latest
     container_name: wud
     restart: unless-stopped
+    ports:
+      - '3001:3000'
     healthcheck:
       test: curl --fail http://localhost:3000/health || exit 1
       interval: 30s
       timeout: 30s
+    environment:
+      WUD_LOG_LEVEL: debug
     volumes:
       - /run/user/1000/podman/podman.sock:/var/run/docker.sock:ro

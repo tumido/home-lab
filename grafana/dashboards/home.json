@@ -102,7 +102,7 @@
               "uid": "ee8vu48m4j8xsb"
             },
             "editorMode": "code",
-            "expr": "up{instance=\"grafana\"}",
+            "expr": "up{job=\"grafana\",host=\"neem\"}",
             "format": "time_series",
             "instant": true,
             "intervalFactor": 2,
@@ -194,7 +194,7 @@
               "uid": "ee8vu48m4j8xsb"
             },
             "editorMode": "code",
-            "expr": "up{instance=\"prometheus\"}",
+            "expr": "up{job=\"prometheus\",host=\"neem\"}",
             "format": "time_series",
             "instant": true,
             "intervalFactor": 2,
@@ -286,7 +286,7 @@
               "uid": "ee8vu48m4j8xsb"
             },
             "editorMode": "code",
-            "expr": "up{instance=\"podman\"}",
+            "expr": "up{job=\"podman\",host=\"neem\"}",
             "format": "time_series",
             "instant": true,
             "intervalFactor": 2,
@@ -311,7 +311,7 @@
             "links": [
               {
                 "title": "Neem",
-                "url": "/d/rYdddlPWk/node-exporter?var-job=neem"
+                "url": "/d/rYdddlPWk/node-exporter?var-host=neem"
               }
             ],
             "mappings": [
@@ -378,7 +378,7 @@
               "uid": "ee8vu48m4j8xsb"
             },
             "editorMode": "code",
-            "expr": "up{instance=\"node_exporter\",job=\"neem\"}",
+            "expr": "up{job=\"node_exporter\",host=\"neem\"}",
             "format": "time_series",
             "instant": true,
             "intervalFactor": 2,
@@ -403,7 +403,7 @@
             "links": [
               {
                 "title": "Node exporter",
-                "url": "/d/rYdddlPWk/node-exporter?var-job=turris"
+                "url": "/d/rYdddlPWk/node-exporter?var-host=turris"
               },
               {
                 "title": "OpenWRT",
@@ -474,7 +474,7 @@
               "uid": "ee8vu48m4j8xsb"
             },
             "editorMode": "code",
-            "expr": "up{instance=\"node_exporter\",job=\"turris\"}",
+            "expr": "up{job=\"node_exporter\",host=\"turris\"}",
             "format": "time_series",
             "instant": true,
             "intervalFactor": 2,
