@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -225,7 +225,7 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 7,
+        "w": 11,
         "x": 5,
         "y": 1
       },
@@ -308,9 +308,150 @@
           "legendFormat": "Datasources",
           "range": false,
           "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(prometheus_rule_group_rules)",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "legendFormat": "Alerting rules",
+          "range": false,
+          "refId": "E"
         }
       ],
       "title": "",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Firing"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "text",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Pending"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "text",
+                      "value": null
+                    },
+                    {
+                      "color": "orange",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 16,
+        "y": 1
+      },
+      "id": 20,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "vertical",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(count(irate(ALERTS{alertstate=\"firing\",alertname!=\"Heartbeat\"}[$__rate_interval])) by(alertname)) OR vector(0)",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Firing",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ee8vu48m4j8xsb"
+          },
+          "editorMode": "code",
+          "expr": "count(count(irate(ALERTS{alertstate=\"pending\",alertname!=\"Heartbeat\"}[$__rate_interval])) by(alertname)) OR vector(0)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Pending",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Alerts",
       "type": "stat"
     },
     {
@@ -358,9 +499,9 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 12,
-        "x": 12,
-        "y": 1
+        "w": 16,
+        "x": 0,
+        "y": 5
       },
       "id": 3,
       "maxDataPoints": 100,
@@ -419,6 +560,41 @@
         }
       ],
       "type": "table"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 21,
+        "w": 8,
+        "x": 16,
+        "y": 6
+      },
+      "id": 19,
+      "options": {
+        "alertInstanceLabelFilter": "{alertname!=\"Heartbeat\"}",
+        "alertName": "",
+        "dashboardAlerts": false,
+        "groupBy": [
+          "job"
+        ],
+        "groupMode": "default",
+        "maxItems": 20,
+        "sortOrder": 3,
+        "stateFilter": {
+          "error": true,
+          "firing": true,
+          "noData": false,
+          "normal": false,
+          "pending": true
+        },
+        "viewMode": "list"
+      },
+      "pluginVersion": "11.4.0",
+      "title": "",
+      "type": "alertlist"
     },
     {
       "datasource": {
@@ -517,7 +693,7 @@
         "h": 10,
         "w": 8,
         "x": 0,
-        "y": 5
+        "y": 9
       },
       "id": 4,
       "options": {
@@ -650,7 +826,7 @@
         "h": 10,
         "w": 8,
         "x": 8,
-        "y": 5
+        "y": 9
       },
       "id": 5,
       "options": {
@@ -706,167 +882,6 @@
       ],
       "title": "Requests by routing group",
       "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "text",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Firing"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "text",
-                      "value": null
-                    },
-                    {
-                      "color": "red",
-                      "value": 1
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Pending"
-            },
-            "properties": [
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "text",
-                      "value": null
-                    },
-                    {
-                      "color": "orange",
-                      "value": 1
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 8,
-        "x": 16,
-        "y": 5
-      },
-      "id": 20,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "vertical",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.4.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "count(count(irate(ALERTS{alertstate=\"firing\",alertname!=\"Heartbeat\"}[$__rate_interval])) by(alertname)) OR vector(0)",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Firing",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ee8vu48m4j8xsb"
-          },
-          "editorMode": "code",
-          "expr": "count(count(irate(ALERTS{alertstate=\"pending\",alertname!=\"Heartbeat\"}[$__rate_interval])) by(alertname)) OR vector(0)",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "Pending",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "Alerts",
-      "type": "stat"
-    },
-    {
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 13,
-        "w": 8,
-        "x": 16,
-        "y": 10
-      },
-      "id": 19,
-      "options": {
-        "alertInstanceLabelFilter": "{alertname!=\"Heartbeat\"}",
-        "alertName": "",
-        "dashboardAlerts": false,
-        "groupBy": [
-          "job"
-        ],
-        "groupMode": "default",
-        "maxItems": 20,
-        "sortOrder": 3,
-        "stateFilter": {
-          "error": true,
-          "firing": true,
-          "noData": false,
-          "normal": false,
-          "pending": true
-        },
-        "viewMode": "list"
-      },
-      "pluginVersion": "11.4.0",
-      "title": "",
-      "type": "alertlist"
     },
     {
       "datasource": {
@@ -984,7 +999,7 @@
         "h": 8,
         "w": 16,
         "x": 0,
-        "y": 15
+        "y": 19
       },
       "id": 8,
       "options": {
@@ -1042,7 +1057,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 27
       },
       "id": 7,
       "panels": [],
@@ -1094,7 +1109,7 @@
         "h": 4,
         "w": 2,
         "x": 0,
-        "y": 24
+        "y": 28
       },
       "id": 10,
       "maxDataPoints": 100,
@@ -1174,7 +1189,7 @@
         "h": 4,
         "w": 3,
         "x": 2,
-        "y": 24
+        "y": 28
       },
       "id": 9,
       "maxDataPoints": 100,
@@ -1252,7 +1267,7 @@
         "h": 4,
         "w": 3,
         "x": 5,
-        "y": 24
+        "y": 28
       },
       "id": 13,
       "maxDataPoints": 100,
@@ -1342,7 +1357,7 @@
         "h": 4,
         "w": 16,
         "x": 8,
-        "y": 24
+        "y": 28
       },
       "id": 14,
       "maxDataPoints": 100,
@@ -1471,7 +1486,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 28
+        "y": 32
       },
       "id": 15,
       "options": {
@@ -1576,7 +1591,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 28
+        "y": 32
       },
       "id": 16,
       "options": {
@@ -1708,7 +1723,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 38
+        "y": 42
       },
       "id": 18,
       "options": {
@@ -1814,7 +1829,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 38
+        "y": 42
       },
       "id": 17,
       "options": {
@@ -1870,6 +1885,6 @@
   "timezone": "browser",
   "title": "Monitoring stack",
   "uid": "fe9342yjy00e8b",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
