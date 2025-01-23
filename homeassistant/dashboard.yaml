@@ -1,0 +1,992 @@
+views:
+  - cards: []
+    type: sections
+    sections:
+      - type: grid
+        cards:
+          - type: vertical-stack
+            grid_options:
+              columns: 6
+            cards:
+              - type: heading
+                heading_style: title
+                heading: Čistička
+                icon: mdi:air-purifier
+                card_mod:
+                  style: |
+                    ha-card {
+                      min-height: var(--row-height);
+                    }
+              - type: custom:stack-in-card
+                mode: vertical
+                card_mod:
+                  style: |
+                    ha-card {
+                      --state-inactive-color: rgb(var(--rgb-disabled));
+                      {% if is_state('fan.levoit_core_600s', 'on') %}
+                        --ha-card-background: color-mix(in srgb, var(--green-color), transparent 90%) !important;
+                        background-color: color-mix(in srgb, var(--light-green-color), transparent 90%) !important;
+                      {% endif %}
+                      --horizontal-stack-card-gap: 0;
+                    }
+                cards:
+                  - type: custom:mushroom-template-card
+                    entity: fan.levoit_core_600s
+                    icon: |
+                      {% if is_state(entity, 'on') %}
+                      mdi:fan
+                      {% else %}
+                      mdi:fan-off
+                      {% endif %}
+                    icon_color: |
+                      {% if is_state(entity, 'on') %}
+                      green
+                      {% endif %}
+                    primary: '{{ state_translated(entity) }}'
+                    secondary: |
+                      {% if state_attr(entity, 'mode') == 'manual' %}
+                      {{ state_attr(entity, 'percentage') }} %
+                      {% else %}
+                      Auto
+                      {% endif %}
+                    card_mod:
+                      style:
+                        mushroom-state-item$: |
+                          .container {
+                            padding-bottom: 0 !important;
+                          }
+                        .: |
+                          mushroom-shape-icon {
+                            {% if is_state(config.entity, 'on') %}
+                            --shape-animation: spin 1s linear infinite;
+                            {% endif %}
+                          }
+                          ha-card { border: none; }
+                  - type: custom:layout-card
+                    layout_type: custom:grid-layout
+                    layout:
+                      grid-template-columns: 1fr 44px
+                      margin: 0
+                      padding: 0 8px
+                    cards:
+                      - type: custom:mushroom-fan-card
+                        entity: fan.levoit_core_600s
+                        show_percentage_control: true
+                        layout:
+                          flex-grow: 1
+                        primary_info: ''
+                        secondary_info: ''
+                        card_mod:
+                          style:
+                            .: |
+                              .actions { padding: 0 !important; }
+                              ha-card { border: none; }
+                              mushroom-state-item { display: none; }
+                            mushroom-card$: |
+                              .container { --control-height: 36px; }
+                      - type: tile
+                        entity: fan.levoit_core_600s
+                        color: green
+                        features:
+                          - type: fan-preset-modes
+                            style: icons
+                            preset_modes:
+                              - auto
+                        card_mod:
+                          style:
+                            .: |
+                              .content {
+                                display: none !important;
+                              }
+                            hui-card-features$: |
+                              .container { 
+                                padding: 0 !important;
+                                --feature-height: 36px;
+                              }
+                  - type: custom:mushroom-chips-card
+                    alignment: center
+                    card_mod:
+                      style: |
+                        ha-card {
+                          --chip-box-shadow: none;
+                          --chip-background: none;
+                          --chip-border-color: transparent;
+                        }
+                    chips:
+                      - type: template
+                        content: '{{ states(entity, with_unit=True) }}'
+                        entity: sensor.levoit_core_600s_filter_lifetime
+                        icon: mdi:air-filter
+                        tap_action:
+                          action: more-info
+                        icon_color: light-blue
+                      - type: template
+                        icon_color: |
+                          {% if is_state(entity, '1') %}
+                          light-blue
+                          {% elif is_state(entity, '2') %}
+                          green
+                          {% elif is_state(entity, '3') %}
+                          amber
+                          {% else %}
+                          red
+                          {% endif %}
+                        icon: |
+                          {% if is_state(entity, '1') %}
+                          mdi:circle-outline
+                          {% elif is_state(entity, '2') %}
+                          mdi:circle-slice-3
+                          {% elif is_state(entity, '3') %}
+                          mdi:circle-slice-5
+                          {% else %}
+                          mdi:circle-slice-8
+                          {% endif %}
+                        entity: sensor.levoit_core_600s_air_quality
+                        tap_action:
+                          action: more-info
+                      - type: template
+                        content: '{{ states(entity, with_unit=True) }}'
+                        entity: sensor.levoit_core_600s_pm2_5
+                        icon: mdi:flower-pollen
+                        icon_color: amber
+                        tap_action:
+                          action: more-info
+                  - type: custom:mini-graph-card
+                    entities:
+                      - entity: sensor.levoit_core_600s_pm2_5
+                        color: green
+                    show:
+                      name: false
+                      icon: false
+                      state: false
+                    tap_action:
+                      action: more-info
+                      entity: sensor.levoit_core_600s_pm2_5
+                    line_width: 4
+                    hours_to_show: 24
+                    card_mod:
+                      style: 'ha-card { border: none; }'
+          - type: vertical-stack
+            grid_options:
+              columns: 6
+            cards:
+              - type: heading
+                heading: Pračka
+                heading_style: title
+                icon: mdi:washing-machine
+                card_mod:
+                  style: |
+                    ha-card {
+                      min-height: var(--row-height);
+                    }
+              - type: custom:stack-in-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      --vertical-stack-card-gap: 0;
+                    }
+                cards:
+                  - type: custom:mushroom-template-card
+                    entity: sensor.pracka_thinq_current_status
+                    icon: mdi:washing-machine
+                    primary: Stav
+                    tap_action:
+                      action: more-info
+                    secondary: >
+                      {{ state_translated(entity) }}
+
+                      {% if states('number.pracka_thinq_delay_ends_in') | float
+                      > 0 %}
+                         ⸱ Zbývá {{ states('number.pracka_thinq_delay_ends_in') }}
+                      {% endif %}
+                    card_mod:
+                      style:
+                        .: |
+                          ha-card {
+                            border: none;
+                            {% if not is_state('sensor.pracka_thinq_current_status', 'power_off') %}
+                            background-color: color-mix(in srgb, var(--amber-color), transparent 90%) !important;
+                            {% endif %}
+                          } mushroom-shape-icon {
+                            {% if not is_state('sensor.pracka_thinq_current_status', 'power_off') %}
+                            --shape-color: rgba(var(--rgb-state-climate-heat), 0.1) !important;
+                            {% endif %}
+                          } ha-state-icon {
+                            {% if not is_state('sensor.pracka_thinq_current_status', 'power_off') and not is_state('sensor.pracka_thinq_current_status', 'initial') %}
+                              animation: shake 400ms ease-in-out infinite, drum 2s ease infinite;
+                              transform-origin: 50% 110%;
+                            {% endif %}
+                            {% if not is_state('sensor.pracka_thinq_current_status', 'power_off') %}
+                              --card-mod-icon: mdi:washing-machine;
+                              --shape-color: rgba(var(--rgb-state-climate-heat), 0.1) !important;
+                              --icon-color: var(--amber-color) !important;
+                            {% else %}
+                              --card-mod-icon: mdi:washing-machine-off;
+                            {% endif %}
+                            display: flex;
+                          } @keyframes shake {
+                            0%, 100% { transform: translate(0, 0) rotate(0); }
+                            20%  { transform: translate(0.4px, -0.4px) rotate(-4deg); }
+                            40%  { transform: translate(-0.4px, 0.4px) rotate(4deg); }
+                            60%  { transform: translate(0.4px, 0.4px) rotate(-4deg); }
+                            80%  { transform: translate(-0.4px, -0.4px) rotate(4deg); }
+                          } @keyframes drum {
+                            50%  { clip-path: polygon(0 0, 0 100%, 35% 100%, 34% 68%, 60% 41%, 71% 56%, 65% 74%, 47% 79%, 32% 69%, 35% 100%, 100% 100%, 100% 0); }
+                          }
+                  - type: custom:mushroom-template-card
+                    entity: event.pracka_thinq_notification
+                    secondary: >
+                      {% if state_attr(entity, 'event_type') ==
+                      'washing_is_complete' %}
+
+                      Hotovo
+
+                      {% else %}
+
+                      Error
+
+                      {% endif %}
+
+                      {{states(entity) | date }}
+                    card_mod:
+                      style: |
+                        ha-card {
+                          border: none;
+                        }
+              - type: heading
+                heading: Vysavač
+                heading_style: title
+                icon: mdi:robot-vacuum
+                card_mod:
+                  style: |
+                    ha-card {
+                      min-height: var(--row-height);
+                    }
+              - type: custom:mushroom-vacuum-card
+                entity: vacuum.dreamebot_l20_ultra
+                icon_animation: true
+                primary_info: state
+                secondary_info: last-updated
+                tap_action:
+                  action: navigate
+                  navigation_path: '#vacuum'
+          - type: vertical-stack
+            cards:
+              - type: heading
+                heading_style: title
+                heading: Hudba
+                icon: mdi:speaker
+                card_mod:
+                  style: |
+                    ha-card {
+                      min-height: var(--row-height);
+                    }
+              - type: custom:stack-in-card
+                mode: vertical
+                card_mod:
+                  style: |
+                    ha-card {
+                      position: relative;
+                      --c: color-mix(in srgb, var(--indigo-color), transparent 80%);
+                      {% if state_attr("media_player.living_room", "entity_picture") %}
+                      background: linear-gradient(to left, transparent 10%, color-mix(in srgb, var(--indigo-color), transparent 80%) 40%, color-mix(in srgb, var(--indigo-color), rgb(var(--rgb-card-background-color)) 80%) 60%), url( '{{ state_attr("media_player.living_room", "entity_picture") }}');
+                      {% else %}
+                      background-color: rgb(var(--rgb-card-background-color));
+                      {% endif %}
+                      background-size: cover, 60% auto;
+                      background-position: right;
+                      background-repeat: no-repeat;
+                      background-clip: content-box;
+                      --vertical-stack-card-gap: 0;
+                    }
+                tap_action:
+                  action: more-info
+                  entity: media_player.living_room
+                cards:
+                  - type: custom:mushroom-template-card
+                    entity: media_player.living_room
+                    tap_action:
+                      action: more-info
+                    icon: |
+                      {% if is_state(entity, 'playing') %}
+                      mdi:speaker-play
+                      {% elif not state_attr(entity, 'media_artist') %}
+                      mdi:speaker-off
+                      {% elif is_state(entity, 'paused') %}
+                      mdi:speaker-pause
+                      {% else %}
+                      mdi:speaker-off
+                      {% endif %}
+                    primary: >
+                      {% if state_attr(entity, 'media_artist') and
+                      state_attr(entity, 'media_title') %}
+                        {{ state_attr(entity, 'media_artist') }} · {{ state_attr(entity,'media_title') }}
+                      {% elif state_attr(entity, 'media_title') %}
+                        {{ state_attr(entity,'media_title') }}
+                      {% else %}
+                        Odpojeno
+                      {% endif %}
+                    secondary: >
+                      {% if state_attr(entity, 'media_title') or
+                      state_attr(entity, 'media_artist') %}
+                        {{ state_translated(entity) }}
+                      {% else %}
+                        Nehraje
+                      {% endif %}
+                    icon_color: |
+                      {% if is_state(entity, 'playing') %}
+                      indigo
+                      {% endif %}
+                    card_mod:
+                      style:
+                        .: |
+                          ha-card {
+                            border: none;
+                          }
+                          mushroom-state-item {
+                            padding-bottom: 40px;
+                          }
+                          ha-state-icon {
+                            {% if is_state(config.entity, 'playing') %}
+                            animation: beat 1.3s ease-out infinite both;
+                            {% endif %}
+                            transform-origin: 50% 60%;
+                          }
+                          @keyframes beat {
+                            0% { transform: scale(1); }
+                            10% { transform: scale(1.1); }
+                            17% { transform: scale(1.05); }
+                            33% { transform: scale(1.2); }
+                            60% { transform: scale(1); }
+                          }
+                  - type: grid
+                    columns: 2
+                    square: false
+                    cards:
+                      - type: custom:mushroom-media-player-card
+                        entity: media_player.living_room
+                        volume_controls: []
+                        show_volume_level: false
+                        use_media_info: false
+                        fill_container: true
+                        icon_type: none
+                        primary_info: none
+                        secondary_info: none
+                        media_controls:
+                          - previous
+                          - play_pause_stop
+                          - next
+                        card_mod:
+                          style:
+                            .: |
+                              ha-card {
+                                border: none;
+                              };
+                      - type: custom:mushroom-template-card
+                        entity: media_player.living_room
+                        card_mod:
+                          style: |
+                            ha-card {
+                              border: none;
+                            }
+                            mushroom-state-item {
+                              min-height: 56px;
+                              display: block;
+                            };
+                        tap_action:
+                          action: more-info
+                  - type: grid
+                    columns: 2
+                    square: false
+                    cards:
+                      - type: custom:mushroom-media-player-card
+                        entity: media_player.living_room
+                        fill_container: false
+                        use_media_info: true
+                        icon_type: none
+                        primary_info: none
+                        secondary_info: none
+                        volume_controls:
+                          - volume_buttons
+                          - volume_set
+                          - volume_mute
+                        collapsible_controls: false
+                        card_mod:
+                          style: |
+                            ha-card {
+                              border: none;
+                              {% if not is_state(config.entity, 'playing') %}
+                              --rgb-state-media-player: var(--rgb-disabled);
+                              {% endif %}
+                              z-index: 3;
+                             };
+                      - type: custom:mushroom-template-card
+                        entity: media_player.living_room
+                        card_mod:
+                          style: |
+                            ha-card {
+                              border: none;
+                            }
+                            mushroom-state-item {
+                              min-height: 56px;
+                              display: block;
+                            };
+                        tap_action:
+                          action: more-info
+                  - type: custom:mini-media-player
+                    entity: media_player.living_room
+                    artwork: material
+                    hide:
+                      power: true
+                      name: true
+                      icon: true
+                      info: true
+                      controls: true
+                      volume: true
+                    card_mod:
+                      style: |
+                        ha-card {
+                          border: none;
+                          height: 6px;
+                        };
+                    shortcuts:
+                      columns: 4
+                      buttons: null
+          - type: vertical-stack
+            cards:
+              - type: custom:bubble-card
+                card_type: pop-up
+                hash: '#vacuum'
+                show_header: true
+                width_desktop: 700px
+                entity: sensor.dreamebot_l20_ultra_status
+                icon: mdi:robot-vacuum
+                force_icon: false
+                show_last_changed: false
+                show_state: true
+                show_attribute: false
+                card_layout: normal
+                show_icon: true
+                scrolling_effect: true
+                name: Vysavač
+                hide_backdrop: false
+              - type: custom:xiaomi-vacuum-map-card
+                map_source:
+                  camera: camera.dreamebot_l20_ultra_map
+                calibration_source:
+                  camera: true
+                entity: vacuum.dreamebot_l20_ultra
+                vacuum_platform: default
+                map_modes:
+                  - template: vacuum_clean_zone
+                  - template: vacuum_goto
+                  - template: vacuum_clean_segment
+                    predefined_selections:
+                      - id: '1'
+                        icon:
+                          name: mdi:toilet
+                          x: -1350
+                          'y': 3100
+                        label:
+                          text: Bathroom
+                          x: -1350
+                          'y': 3100
+                          offset_y: 35
+                        outline:
+                          - - -3200
+                            - 2400
+                          - - 500
+                            - 2400
+                          - - 500
+                            - 4750
+                          - - -3200
+                            - 4750
+                      - id: '2'
+                        icon:
+                          name: mdi:home-outline
+                          x: 1400
+                          'y': 3250
+                        label:
+                          text: Toilet
+                          x: 1400
+                          'y': 3250
+                          offset_y: 35
+                        outline:
+                          - - 500
+                            - 2300
+                          - - 2300
+                            - 2300
+                          - - 2300
+                            - 4050
+                          - - 500
+                            - 4050
+                      - id: '3'
+                        icon:
+                          name: mdi:sofa-outline
+                          x: 4800
+                          'y': 2950
+                        label:
+                          text: Living Room
+                          x: 4800
+                          'y': 2950
+                          offset_y: 35
+                        outline:
+                          - - 2350
+                            - -800
+                          - - 7750
+                            - -800
+                          - - 7750
+                            - 6200
+                          - - 2350
+                            - 6200
+                      - id: '4'
+                        icon:
+                          name: mdi:bookshelf
+                          x: -6100
+                          'y': 1850
+                        label:
+                          text: Study
+                          x: -6100
+                          'y': 1850
+                          offset_y: 35
+                        outline:
+                          - - -13950
+                            - -850
+                          - - -3200
+                            - -850
+                          - - -3200
+                            - 4300
+                          - - -13950
+                            - 4300
+                      - id: '5'
+                        icon:
+                          name: mdi:foot-print
+                          x: 3350
+                          'y': -2300
+                        label:
+                          text: Corridor
+                          x: 3350
+                          'y': -2300
+                          offset_y: 35
+                        outline:
+                          - - 2650
+                            - -3800
+                          - - 4200
+                            - -3800
+                          - - 4200
+                            - -800
+                          - - 2650
+                            - -800
+                      - id: '6'
+                        icon:
+                          name: mdi:chef-hat
+                          x: -450
+                          'y': 750
+                        label:
+                          text: Kitchen
+                          x: -450
+                          'y': 750
+                          offset_y: 35
+                        outline:
+                          - - -3200
+                            - -800
+                          - - 2400
+                            - -800
+                          - - 2400
+                            - 2300
+                          - - -3200
+                            - 2300
+                      - id: '7'
+                        icon:
+                          name: mdi:bed-king-outline
+                          x: 6250
+                          'y': -2000
+                        label:
+                          text: Primary Bedroom
+                          x: 6250
+                          'y': -2000
+                          offset_y: 35
+                        outline:
+                          - - 4150
+                            - -3850
+                          - - 8900
+                            - -3850
+                          - - 8900
+                            - -250
+                          - - 4150
+                            - -250
+                map_locked: true
+                card_mod:
+                  style: |
+                    ha-card {
+                      border: none;
+                      box-shadow: none;
+                      background: transparent;
+                    }
+      - type: grid
+        cards:
+          - type: heading
+            heading: Vytápění
+            heading_style: title
+            icon: mdi:radiator
+          - type: custom:stack-in-card
+            mode: vertical
+            card_mod:
+              style: |
+                ha-card {
+                  {% if is_state('climate.living_room_climate', 'heat') %}
+                    background-color: color-mix(in srgb, var(--red-color), transparent 90%) !important;
+                  {% endif %}
+                }
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mushroom-template-card
+                    entity: climate.living_room_climate
+                    icon: mdi:fire
+                    primary: Obývací pokoj
+                    tap_action:
+                      action: more-info
+                    secondary: >
+                      {{ state_translated(entity) }} ⸱ 
+
+                      {{ state_attr(entity, 'current_temperature')}} °C ⸱ 
+
+                      {{ states('sensor.living_room_thermostat_humidity') |
+                      round(1) }} %
+                    card_mod:
+                      style: |
+                        mushroom-shape-icon {
+                          {% if is_state(config.entity, 'heat') %}
+                            --card-mod-icon: mdi:fire;
+                            animation: heat 5s infinite, shake 2s infinite;
+                            transform-origin: center;
+                            --shape-color: rgba(var(--rgb-state-climate-heat), 0.2) !important;
+                          {% else %}
+                            --card-mod-icon: mdi:fire-off; 
+                          {% endif %}
+                          display: flex;
+                        }
+                        @keyframes heat {
+                          0%, 100% { --icon-color: rgba(var(--rgb-red), 1); }
+                          10%, 90% { --icon-color: rgba(var(--rgb-red), 0.8); }
+                          20%, 80% { --icon-color: rgba(var(--rgb-red), 0.6); }
+                          30%, 70% { --icon-color: rgba(var(--rgb-red), 0.4); }
+                          40%, 60% { --icon-color: rgba(var(--rgb-red), 0.5); }
+                          50% { --icon-color: rgba(var(--rgb-red), 0.5); }
+                        }
+                        @keyframes shake {
+                          0%, 100% { transform: translate(0, 0) rotate(0); }
+                          20%  { transform:  rotate(-4deg); }
+                          40%  { transform:  rotate(4deg); }
+                          60%  { transform: rotate(-4deg); }
+                          80%  { transform:  rotate(4deg); }
+                        }
+                        ha-card {
+                          border: none;
+                        }
+                  - type: custom:mushroom-climate-card
+                    entity: climate.living_room_climate
+                    show_temperature_control: true
+                    primary_info: none
+                    secondary_info: none
+                    icon_type: none
+                    hvac_modes:
+                      - 'off'
+                      - heat
+                    card_mod:
+                      style: |
+                        ha-card { border: none; }
+              - type: custom:mushroom-chips-card
+                alignment: center
+                card_mod:
+                  style: |
+                    ha-card {
+                      --chip-box-shadow: none;
+                      --chip-background: none;
+                      --chip-border-color: transparent;
+                    }
+                chips:
+                  - type: template
+                    content: '{{state_attr(entity, ''current_temperature'')}} °C'
+                    entity: climate.smart_radiator_thermostat_x_2
+                    icon: mdi:home-thermometer
+                    tap_action:
+                      action: more-info
+                    icon_color: |-
+                      {% set state=states(entity) %}
+                      {% if state=='heat' %}
+                      orange
+                      {% else %}
+                      grey
+                      {% endif %}
+                  - type: template
+                    content: '{{states(entity) | round(1)}} %'
+                    entity: sensor.smart_radiator_thermostat_x_humidity_2
+                    icon: mdi:water
+                    icon_color: blue
+                    tap_action:
+                      action: more-info
+                  - type: template
+                    content: '{{state_attr(entity, ''current_temperature'')}} °C'
+                    entity: climate.smart_radiator_thermostat_x
+                    icon: mdi:home-thermometer
+                    tap_action:
+                      action: more-info
+                    icon_color: |-
+                      {% set state=states(entity) %}
+                      {% if state=='heat' %}
+                      orange
+                      {% else %}
+                      grey
+                      {% endif %}
+                  - type: template
+                    content: '{{states(entity) | round(1)}} %'
+                    entity: sensor.smart_radiator_thermostat_x_humidity
+                    icon: mdi:water
+                    icon_color: blue
+                    tap_action:
+                      action: more-info
+              - type: custom:mini-graph-card
+                entities:
+                  - entity: climate.smart_radiator_thermostat_x
+                    attribute: current_temperature
+                    name: Pravé topení
+                    color: yellow
+                  - entity: climate.smart_radiator_thermostat_x_2
+                    attribute: current_temperature
+                    name: Levé topení
+                    color: orange
+                show:
+                  name: false
+                  icon: false
+                  state: false
+                  legend: false
+                line_width: 1
+                decimals: 1
+                hour24: true
+                hours_to_show: 24
+                card_mod:
+                  style: |
+                    ha-card {
+                      border: none;
+                    }
+          - type: custom:stack-in-card
+            mode: vertical
+            grid_options:
+              columns: 6
+            card_mod:
+              style: |
+                ha-card {
+                  {% if is_state('climate.smart_radiator_thermostat_x_3', 'heat') %}
+                    background-color: color-mix(in srgb, var(--red-color), transparent 90%) !important;
+                  {% endif %}
+                }
+            cards:
+              - type: custom:mushroom-climate-card
+                entity: climate.smart_radiator_thermostat_x_3
+                show_temperature_control: true
+                name: Ložnice
+                tap_action:
+                  action: more-info
+                hvac_modes:
+                  - 'off'
+                  - heat
+                icon: mdi:fire
+                card_mod:
+                  style: |
+                    mushroom-shape-icon {
+                      {% if is_state(config.entity, 'heat') %}
+                        --card-mod-icon: mdi:fire;
+                        animation: 5s heat 2s infinite, 2s shake .8s infinite;
+                        transform-origin: center;
+                        --shape-color: rgba(var(--rgb-state-climate-heat), 0.2) !important;
+                      {% else %}
+                        --card-mod-icon: mdi:fire-off;
+                      {% endif %}
+                      display: flex;
+                    }
+                    @keyframes heat {
+                      0%, 100% { --icon-color: rgba(var(--rgb-red), 1); }
+                      10%, 90% { --icon-color: rgba(var(--rgb-red), 0.8); }
+                      20%, 80% { --icon-color: rgba(var(--rgb-red), 0.6); }
+                      30%, 70% { --icon-color: rgba(var(--rgb-red), 0.4); }
+                      40%, 60% { --icon-color: rgba(var(--rgb-red), 0.5); }
+                      50% { --icon-color: rgba(var(--rgb-red), 0.5); }
+                    }
+                    @keyframes shake {
+                      0%, 100% { transform: translate(0, 0) rotate(0); }
+                      20%  { transform:  rotate(-4deg); }
+                      40%  { transform:  rotate(4deg); }
+                      60%  { transform: rotate(-4deg); }
+                      80%  { transform:  rotate(4deg); }
+                    }
+                    ha-card {
+                      border: none;
+                    }
+              - type: custom:mushroom-chips-card
+                alignment: center
+                card_mod:
+                  style: |
+                    ha-card {
+                      --chip-box-shadow: none;
+                      --chip-background: none;
+                      --chip-border-color: transparent;
+                    }
+                chips:
+                  - type: template
+                    content: '{{state_attr(entity, ''current_temperature'')}} °C'
+                    entity: climate.smart_radiator_thermostat_x_3
+                    icon: mdi:home-thermometer
+                    tap_action:
+                      action: more-info
+                    icon_color: |-
+                      {% set state=states(entity) %}
+                      {% if state=='heat' %}
+                      orange
+                      {% else %}
+                      grey
+                      {% endif %}
+                  - type: template
+                    content: '{{states(entity) | round(1)}} %'
+                    entity: sensor.smart_radiator_thermostat_x_humidity_3
+                    icon: mdi:water
+                    icon_color: blue
+                    tap_action:
+                      action: more-info
+              - type: custom:mini-graph-card
+                entities:
+                  - entity: climate.smart_radiator_thermostat_x_3
+                    attribute: current_temperature
+                show:
+                  name: false
+                  icon: false
+                  state: false
+                line_width: 4
+                decimals: 1
+                hour24: true
+                hours_to_show: 24
+                card_mod:
+                  style: |
+                    ha-card {
+                      border: none;
+                      margin-top: -24px;
+                    }
+          - type: custom:stack-in-card
+            mode: vertical
+            grid_options:
+              columns: 6
+            card_mod:
+              style: |
+                ha-card {
+                  {% if is_state('climate.smart_radiator_thermostat_x_4', 'heat') %}
+                    background-color: color-mix(in srgb, var(--red-color), transparent 90%) !important;
+                  {% endif %}
+                }
+            cards:
+              - type: custom:mushroom-climate-card
+                entity: climate.smart_radiator_thermostat_x_4
+                show_temperature_control: true
+                name: Pracovna
+                tap_action:
+                  action: more-info
+                hvac_modes:
+                  - 'off'
+                  - heat
+                icon: mdi:fire
+                card_mod:
+                  style: |
+                    mushroom-shape-icon {
+                      {% if is_state(config.entity, 'heat') %}
+                        --card-mod-icon: mdi:fire;
+                        animation: 5s heat .7s infinite, 2s shake .4s infinite;
+                        transform-origin: center;
+                        --shape-color: rgba(var(--rgb-state-climate-heat), 0.2) !important;
+                      {% else %}
+                        --card-mod-icon: mdi:fire-off;
+                      {% endif %}
+                      display: flex;
+                    }
+                    @keyframes heat {
+                      0%, 100% { --icon-color: rgba(var(--rgb-red), 1); }
+                      10%, 90% { --icon-color: rgba(var(--rgb-red), 0.8); }
+                      20%, 80% { --icon-color: rgba(var(--rgb-red), 0.6); }
+                      30%, 70% { --icon-color: rgba(var(--rgb-red), 0.4); }
+                      40%, 60% { --icon-color: rgba(var(--rgb-red), 0.5); }
+                      50% { --icon-color: rgba(var(--rgb-red), 0.5); }
+                    }
+                    @keyframes shake {
+                      0%, 100% { transform: translate(0, 0) rotate(0); }
+                      20%  { transform:  rotate(-4deg); }
+                      40%  { transform:  rotate(4deg); }
+                      60%  { transform: rotate(-4deg); }
+                      80%  { transform:  rotate(4deg); }
+                    }
+                    ha-card {
+                      border: none;
+                    }
+              - type: custom:mushroom-chips-card
+                alignment: center
+                card_mod:
+                  style: |
+                    ha-card {
+                      --chip-box-shadow: none;
+                      --chip-background: none;
+                      --chip-border-color: transparent;
+                    }
+                chips:
+                  - type: template
+                    content: '{{state_attr(entity, ''current_temperature'')}} °C'
+                    entity: climate.smart_radiator_thermostat_x_4
+                    icon: mdi:home-thermometer
+                    tap_action:
+                      action: more-info
+                    icon_color: |-
+                      {% set state=states(entity) %}
+                      {% if state=='heat' %}
+                      orange
+                      {% else %}
+                      grey
+                      {% endif %}
+                  - type: template
+                    content: '{{states(entity) | round(1)}} %'
+                    entity: sensor.smart_radiator_thermostat_x_humidity_4
+                    icon: mdi:water
+                    icon_color: blue
+                    tap_action:
+                      action: more-info
+              - type: custom:mini-graph-card
+                entities:
+                  - entity: climate.smart_radiator_thermostat_x_4
+                    attribute: current_temperature
+                show:
+                  name: false
+                  icon: false
+                  state: false
+                line_width: 4
+                decimals: 1
+                hour24: true
+                hours_to_show: 24
+                card_mod:
+                  style: |
+                    ha-card {
+                      border: none;
+                      margin-top: -24px;
+                    }
+    icon: mdi:home
+    max_columns: 2
+    dense_section_placement: true
+    subview: false
+    badges:
+      - type: custom:mushroom-template-badge
+        entity: calendar.necoche
+        content: >
+          {% from 'easy_time.jinja' import easy_relative_time %}
+
+          {{ state_attr(entity, 'message') }} {{ easy_relative_time(entity,
+          None, 'cs')  }}
+        icon: mdi:calendar
+        color: teal
+        tap_action:
+          action: navigate
+          navigation_path: /calendar
