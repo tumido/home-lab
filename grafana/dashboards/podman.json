@@ -19,7 +19,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 5,
+  "id": 4,
   "links": [],
   "panels": [
     {
@@ -914,7 +914,7 @@
             "uid": "ee8vu48m4j8xsb"
           },
           "editorMode": "code",
-          "expr": "sum by (name) (\n    podman_container_info{job=\"podman\", name=~\"$container\"}\n  * on (id) group_right (name)\n    (podman_container_mem_usage_bytes / 1024 / 1024)\n)",
+          "expr": "sum by (name) (\n    podman_container_info{job=\"podman\", name=~\"$container\"}\n  * on (id) group_right (name)\n    (podman_container_mem_usage_bytes)\n)",
           "hide": false,
           "interval": "",
           "legendFormat": "{{name}}",
@@ -1742,8 +1742,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -2363,6 +2362,6 @@
   "timezone": "",
   "title": "Podman",
   "uid": "fdsbn3zzogqv4f",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
