@@ -3,6 +3,7 @@ version: '3'
 volumes:
   prometheus_data: {}
   homeassistant_data: {}
+  matter_server_data: {}
 
 x-podman:
   in_pod: false
@@ -89,6 +90,11 @@ services:
       timeout: 30s
     environment:
       DBUS_SESSION_BUS_ADDRESS: ${DBUS_SESSION_BUS_ADDRESS}
+    cap_add:
+    - NET_ADMIN
+    - NET_RAW
+    group_add:
+    - keep-groups
     volumes:
     - /etc/localtime:/etc/localtime:ro
     - /run/dbus:/run/dbus:ro
@@ -99,6 +105,16 @@ services:
     - ${PWD}/homeassistant/configuration.yaml:/config/configuration.yaml
     - ${PWD}/homeassistant/scripts.yaml:/config/scripts.yaml
     - ${PWD}/homeassistant/scenes.yaml:/config/scenes.yaml
+    # - /dev/ttyUSB0:/dev/ttyUSB0
+
+  matter_server:
+    container_name: matter_server
+    image: ghcr.io/home-assistant-libs/python-matter-server:stable
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+    - matter_server_data:/data
+    - /etc/localtime:/etc/localtime:ro
 
   wud:
     image: ghcr.io/getwud/wud:latest
