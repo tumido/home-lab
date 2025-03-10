@@ -12,6 +12,8 @@ services:
   grafana:
     image: docker.io/grafana/grafana-enterprise
     container_name: grafana
+    labels:
+      io.containers.autoupdate: registry
     restart: unless-stopped
     ports:
     - '3000:3000'
@@ -32,6 +34,8 @@ services:
   prometheus:
     image: docker.io/prom/prometheus
     container_name: prometheus
+    labels:
+      io.containers.autoupdate: registry
     command:
     - '--config.file=/etc/prometheus/prometheus.yml'
     - '--storage.tsdb.retention.time=100y'
@@ -51,6 +55,8 @@ services:
   podman_exporter:
     image: quay.io/navidys/prometheus-podman-exporter
     container_name: podman_exporter
+    labels:
+      io.containers.autoupdate: registry
     restart: unless-stopped
     userns_mode: keep-id:uid=65534
     healthcheck:
@@ -67,6 +73,8 @@ services:
   node_exporter:
     image: quay.io/prometheus/node-exporter:latest
     container_name: node_exporter
+    labels:
+      io.containers.autoupdate: registry
     healthcheck:
       test: wget --quiet --tries=1 --spider http://localhost:9100 || exit 1
       interval: 30s
@@ -82,6 +90,8 @@ services:
     image: ghcr.io/home-assistant/home-assistant:stable
     container_name: homeassistant
     restart: unless-stopped
+    labels:
+      io.containers.autoupdate: registry
     network_mode: host
     stop_grace_period: 30s
     healthcheck:
@@ -101,16 +111,15 @@ services:
     - /dev/bus:/dev/bus:z
     - /run/user:/run/user:ro
     - homeassistant_data:/config
-    - ${PWD}/homeassistant/automations.yaml:/config/automations.yaml
     - ${PWD}/homeassistant/configuration.yaml:/config/configuration.yaml
-    - ${PWD}/homeassistant/scripts.yaml:/config/scripts.yaml
-    - ${PWD}/homeassistant/scenes.yaml:/config/scenes.yaml
     # - /dev/ttyUSB0:/dev/ttyUSB0
 
   matter_server:
     container_name: matter_server
     image: ghcr.io/home-assistant-libs/python-matter-server:stable
     restart: unless-stopped
+    labels:
+      io.containers.autoupdate: registry
     network_mode: host
     volumes:
     - matter_server_data:/data
@@ -120,6 +129,8 @@ services:
     image: ghcr.io/getwud/wud:latest
     container_name: wud
     restart: unless-stopped
+    labels:
+      io.containers.autoupdate: registry
     ports:
       - '3001:3000'
     healthcheck:

@@ -1,4 +1,3 @@
-
 # Loads default set of integrations. Do not remove.
 default_config:
 
@@ -12,3 +11,215 @@ scene: !include scenes.yaml
 
 prometheus:
   requires_auth: false
+
+sensor:
+  - platform: derivative
+    name: Office Humidity Change
+    source: sensor.smart_radiator_thermostat_x_humidity_4
+    unit_time: min
+    round: 2
+  - platform: derivative
+    name: Office Temperature Change
+    source: sensor.office_temperature
+    unit_time: min
+    round: 2
+
+  - platform: derivative
+    name: Bedroom Humidity Change
+    source: sensor.smart_radiator_thermostat_x_humidity_3
+    unit_time: min
+    round: 2
+  - platform: derivative
+    name: Bedroom Temperature Change
+    source: sensor.bedroom_temperature
+    unit_time: min
+    round: 2
+
+  - platform: min_max
+    name: Living Room Humidity
+    entity_ids:
+      - sensor.smart_radiator_thermostat_x_humidity
+      - sensor.smart_radiator_thermostat_x_humidity_2
+    type: mean
+  - platform: derivative
+    name: Living Room Humidity Change
+    source: sensor.living_room_humidity
+    unit_time: min
+    round: 2
+  - platform: derivative
+    name: Living Room Temperature Change
+    source: sensor.living_room_temperature
+    unit_time: min
+    round: 2
+
+template:
+  - sensor:
+      - name: Office Temperature
+        state: "{{ state_attr('climate.smart_radiator_thermostat_x_4', 'current_temperature') | round(1) }}"
+        unit_of_measurement: °C
+        state_class: measurement
+        device_class: temperature
+
+      - name: Bedroom Temperature
+        state: "{{ state_attr('climate.smart_radiator_thermostat_x_3', 'current_temperature') | round(1) }}"
+        unit_of_measurement: °C
+        state_class: measurement
+        device_class: temperature
+
+      - name: Living Room Temperature
+        state: |
+          {{ average(
+              state_attr('climate.smart_radiator_thermostat_x', 'current_temperature'),
+              state_attr('climate.smart_radiator_thermostat_x_2', 'current_temperature')
+          ) | round(1) }}
+        unit_of_measurement: °C
+        state_class: measurement
+        device_class: temperature
+
+timer:
+  office_suspend_heating:
+    name: Office Suspend Heating
+  living_room_suspend_heating:
+    name: Living Room Suspend Heating
+  bedroom_suspend_heating:
+    name: Bedroom Suspend Heating
+
+
+script manual:
+  window_is_open:
+    alias: "Set hvac_mode to off with timer"
+    fields:
+      timer_id:
+        name: Timer ID
+      climate_id:
+        name: Climate ID
+    sequence:
+    - action: notify.notify
+      metadata: {}
+      data:
+        message: "{{ area_name(climate_id) }}: Otevřené okno"
+    - action: notify.persistent_notification
+      metadata: {}
+      data:
+        message: "{{ area_name(climate_id) }}: Otevřené okno"
+    - action: climate.set_hvac_mode
+      target:
+        entity_id: "{{ climate_id }}"
+      data:
+        hvac_mode: "off"
+    - action: timer.start
+      target:
+        entity_id: "{{ timer_id }}"
+      data:
+        duration: 0:15:00
+
+
+automation office_window_is_open:
+  alias: Office Window Is Open
+  triggers:
+    - trigger: template
+      value_template: |
+        {% if states('sensor.office_humidity_change') | float < -1  -%}
+        true
+        {%- endif %}
+  conditions:
+    - condition: state
+      entity_id: climate.smart_radiator_thermostat_x_4
+      state: heat
+    - not:
+      - condition: state
+        entity_id: timer.office_suspend_heating
+        state: active
+  actions:
+    - action: script.window_is_open
+      data:
+        timer_id: timer.office_suspend_heating
+        climate_id: climate.smart_radiator_thermostat_x_4
+
+automation office_timer_expired:
+  alias: Office Heating Timer Expired
+  triggers:
+    - trigger: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.office_suspend_heating
+  actions:
+    - action: climate.set_hvac_mode
+      target:
+        entity_id: climate.smart_radiator_thermostat_x_4
+      data:
+        hvac_mode: heat
+
+
+automation bedroom_window_is_open:
+  alias: Bedroom Window Is Open
+  triggers:
+    - trigger: template
+      value_template: |
+        {% if states('sensor.bedroom_humidity_change') | float < -1 -%}
+        true
+        {%- endif %}
+  conditions:
+    - condition: state
+      entity_id: climate.smart_radiator_thermostat_x_3
+      state: heat
+    - not:
+      - condition: state
+        entity_id: timer.bedroom_suspend_heating
+        state: active
+  actions:
+    - action: script.window_is_open
+      data:
+        timer_id: timer.bedroom_suspend_heating
+        climate_id: climate.smart_radiator_thermostat_x_3
+
+automation bedroom_timer_expired:
+  alias: Bedroom Heating Timer Expired
+  triggers:
+    - trigger: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.bedroom_suspend_heating
+  actions:
+    - action: climate.set_hvac_mode
+      target:
+        entity_id: climate.smart_radiator_thermostat_x_3
+      data:
+        hvac_mode: heat
+
+
+automation living_room_window_is_open:
+  alias: Living Room Window Is Open
+  triggers:
+    - trigger: template
+      value_template: |
+        {% if states('sensor.living_room_humidity_change') | float < -1 -%}
+        true
+        {%- endif %}
+  conditions:
+    - condition: state
+      entity_id: climate.living_room_climate
+      state: heat
+    - not:
+      - condition: state
+        entity_id: timer.living_room_suspend_heating
+        state: active
+  actions:
+    - action: script.window_is_open
+      data:
+        timer_id: timer.living_room_suspend_heating
+        climate_id: climate.living_room_climate
+
+automation living_room_timer_expired:
+  alias: Living Room Heating Timer Expired
+  triggers:
+    - trigger: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.living_room_suspend_heating
+  actions:
+    - action: climate.set_hvac_mode
+      target:
+        entity_id: climate.living_room_climate
+      data:
+        hvac_mode: heat
