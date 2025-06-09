@@ -1,0 +1,43 @@
+FROM alpine:3.19
+
+RUN apk add --no-cache py3-pip openssl && \
+    apk add --no-cache --virtual build-deps python3-dev openssl-dev libffi-dev musl-dev gcc rust cargo git && \
+    pip install git+https://github.com/OpenKMIP/PyKMIP@v0.10.0 --break-system-packages && \
+    apk del build-deps
+
+RUN mkdir -p /etc/pykmip /policy /var/log/pykmip
+
+COPY ./server.conf /etc/pykmip
+COPY ./policy.json /policy
+COPY --chmod=755 ./entrypoint.sh /entrypoint.sh
+
+EXPOSE 5696
+
+# Certificate key size (bits, 2048 or 4096 is recommended)
+ENV CA_KEY_SIZE="2048"
+ENV CLIENT_KEY_SIZE="2048"
+ENV SERVER_KEY_SIZE="2048"
+# Certificate duration in days
+ENV CA_LIFETIME="3560"
+ENV SERVER_CERT_LIFETIME="1095"
+ENV CLIENT_CERT_LIFETIME="1095"
+# IP address of this KMIP server (use "IP:a.b.c.d" or "DNS:example.com" format)
+ENV SSL_SERVER_NAME=""
+# IP address of Synology NAS (use "IP:a.b.c.d" or "DNS:example.com" format)
+ENV SSL_CLIENT_NAME=""
+# Common names for CA, server and client certificates
+ENV SSL_COMMON_NAME_CA="Private KMIP CA"
+ENV SSL_COMMON_NAME_SERVER="Private KMIP Server"
+ENV SSL_COMMON_NAME_CLIENT="Private KMIP Client"
+# Country name for CA, server and client certificates. Set to two letter country code, for example US or DE
+ENV SSL_COUNTRY_NAME=""
+# State or province name for CA, server and client certificates
+ENV SSL_STATE_OR_PROVINCE=""
+# Locality (city/town) name for CA, server and client certificates
+ENV SSL_LOCALITY=""
+# Organization name for CA, server and client certificates
+ENV SSL_ORGANIZATION="Private SAN"
+# Organizational unit name for CA, server and client certificates
+ENV SSL_ORGANIZATIONAL_UNIT="PKI"
+
+CMD /entrypoint.sh
