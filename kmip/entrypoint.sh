@@ -3,6 +3,7 @@
 set -e
 
 mkdir -p /var/lib/certs
+mkdir -p /data
 
 if [ ! -f /var/lib/certs/ca.key ]; then
     echo "=== Generating private CA RSA key"
